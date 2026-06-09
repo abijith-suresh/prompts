@@ -1,0 +1,50 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+
+import SiteLayout from '../layouts/SiteLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { PROMPTS_REPOSITORY } from '../lib/prompt-catalog';
+
+export async function getStaticPaths() {
+  const definitions = await getCollection('promptDefinitions');
+  return definitions.map((definition) => ({
+    params: { prompt: definition.id },
+  }));
+}
+
+const slug = Astro.params.prompt!;
+
+const definition = await getEntry('promptDefinitions', slug);
+const { Content } = await render(definition);
+---
+
+<SiteLayout title={`${definition.data.name} | Prompts`} description={definition.data.description}>
+  <article class="container-site pt-10 pb-24">
+    <nav class="mb-10" aria-label="Breadcrumb">
+      <a
+        href={import.meta.env.BASE_URL}
+        class="text-xs font-medium text-muted no-underline uppercase tracking-wider transition-colors duration-150 hover:text-text focus-visible:text-text py-2.5 inline-flex items-center"
+      >
+        Prompts
+      </a>
+      <span class="text-xs text-muted mx-2" aria-hidden="true">/</span>
+      <span class="text-xs font-medium text-text uppercase tracking-wider" translate="no">
+        {definition.data.name}
+      </span>
+    </nav>
+
+    <h1 class="text-page-title font-bold leading-snug tracking-tight text-balance" translate="no">{definition.data.name}</h1>
+
+    <section class="mt-16">
+      <SectionHeader eyebrow="Description" />
+      <p class="text-muted-foreground leading-relaxed">{definition.data.description}</p>
+    </section>
+
+    <section class="mt-16">
+      <SectionHeader eyebrow="PROMPT.md" />
+      <div class="prose max-w-[var(--measure-wide)]">
+        <Content />
+      </div>
+    </section>
+  </article>
+</SiteLayout>
