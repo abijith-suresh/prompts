@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import PageHero from '../components/PageHero.astro';
+import { buildPromptSummaries, PROMPTS_REPOSITORY } from '../lib/prompt-catalog';
+import { buildPromptPath } from '../lib/site-paths';
+
+const definitions = await getCollection('promptDefinitions');
+const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
+---
+
+<SiteLayout
+  title="Prompts"
+  description="Browse personal AI prompts for coding agents and chat applications. Copy what you need."
+>
+  <PageHero
+    eyebrow="abijith-suresh/prompts"
+    title="Prompts"
+    description="Reusable prompts for AI coding agents and chat apps. Copy, paste, run."
+    sectionClass="pt-20 pb-10"
+    titleClass="max-w-[20ch]"
+  />
+
+  <section class="container-site pb-24">
+    <SectionHeader eyebrow="Prompts" as="h2" />
+
+    <ul class="list-none p-0 m-0">
+        {prompts.map((prompt) => (
+          <li>
+            <a
+              href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)}
+              class="group block px-3 py-5 -mx-3 border-b border-border no-underline text-inherit transition-colors duration-150 last:border-b-0 hover:bg-accent"
+            >
+              <div class="text-lg font-semibold leading-snug text-text group-hover:text-[var(--color-card-hover-text)]" translate="no">{prompt.name}</div>
+              <p class="text-sm text-muted-foreground mt-1 group-hover:text-[var(--color-card-hover-text)]">{prompt.description}</p>
+            </a>
+          </li>
+        ))}
+    </ul>
+  </section>
+</SiteLayout>

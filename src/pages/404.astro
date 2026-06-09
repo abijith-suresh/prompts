@@ -1,0 +1,19 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="404 | Prompts" description="Page not found">
+  <main class="container-site pt-20 pb-24">
+    <p class="eyebrow">404</p>
+    <h1 class="text-hero font-bold leading-[var(--leading-tighter)] tracking-tight mt-4 text-balance">Page not found</h1>
+    <p class="text-lg leading-relaxed max-w-prose mt-6 text-muted-foreground">
+      The prompt you're looking for doesn't exist.
+    </p>
+    <a
+      href={import.meta.env.BASE_URL}
+      class="inline-block mt-10 text-sm font-medium uppercase tracking-wider text-muted underline underline-offset-4 decoration-border hover:text-accent hover:decoration-accent transition-colors duration-150"
+    >
+      Back to prompts
+    </a>
+  </main>
+</SiteLayout>
