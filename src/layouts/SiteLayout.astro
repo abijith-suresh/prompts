@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -51,5 +52,6 @@ const fontFaces = `
     <main id="main-content" class="grow">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

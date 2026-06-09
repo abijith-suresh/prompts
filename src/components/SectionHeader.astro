@@ -1,0 +1,12 @@
+---
+interface Props {
+  eyebrow: string;
+  as?: 'h2' | 'p';
+}
+
+const { eyebrow, as: Tag = 'h2' } = Astro.props;
+---
+
+<div class="border-t border-border pt-8 mb-4">
+  <Tag class="eyebrow">{eyebrow}</Tag>
+</div>
