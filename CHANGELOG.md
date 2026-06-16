@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — 2026-06-16
+
+- Aligned the docs site with the reference Astro projects: Satteri Markdown,
+  IBM Plex typography, neutral CSS design tokens, Biome, Vitest, and PR CI.
+
 ### Added — 2026-05-16
 
 - Initial commit: `LICENSE` (MIT) and `README.md` with project description and

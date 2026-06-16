@@ -1,4 +1,4 @@
-export const PROMPTS_REPOSITORY = 'abijith-suresh/prompts';
+export const PROMPTS_REPOSITORY = "abijith-suresh/prompts";
 
 export interface PromptSummary {
   slug: string;
@@ -8,12 +8,12 @@ export interface PromptSummary {
 }
 
 export function directorySlugFromEntry(entry: string): string {
-  return entry.split('/')[0] ?? entry;
+  return entry.split("/")[0] ?? entry;
 }
 
 export function buildPromptSummaries(
   definitions: { id: string; data: { name: string; description: string } }[],
-  repository = PROMPTS_REPOSITORY,
+  repository = PROMPTS_REPOSITORY
 ): PromptSummary[] {
   return definitions
     .map((definition) => ({
