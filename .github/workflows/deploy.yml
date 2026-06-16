@@ -22,7 +22,7 @@ jobs:
         with:
           path: .
           package-manager: bun@1.3.14
-          node-version: 24
+          node-version: 24.14.1
 
   deploy:
     needs: build
