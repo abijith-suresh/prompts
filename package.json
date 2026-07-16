@@ -23,14 +23,14 @@
     "verify": "bun run type-check && bun run lint && bun run format:check && bun run test && bun run build"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.3.0",
+    "@astrojs/markdown-satteri": "^0.3.4",
     "astro": "^6.4.6",
-    "satteri-expressive-code": "^0.1.11"
+    "satteri-expressive-code": "^0.1.18"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "@biomejs/biome": "^2.5.0",
+    "@biomejs/biome": "^2.5.4",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.10"
   }
 }
