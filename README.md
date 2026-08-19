@@ -18,7 +18,7 @@ use.
 
 | Category | Tool | Description |
 | --- | --- | --- |
-| _(coming soon)_ | — | — |
+| General | Any | [Clarify](prompts/clarify/PROMPT.md) — rewrite rough user prompts into clear, precise coding-agent prompts |
 
 ## Related
 

@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added — 2026-08-19
+
+- `clarify`: prompt to rewrite rough user requests into clear, precise
+  coding-agent prompts using terminology compression
+
 ### Changed — 2026-06-16
 
 - Aligned the docs site with the reference Astro projects: Satteri Markdown,
