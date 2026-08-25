@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added — 2026-08-25
+
+- Docs site: copy-prompt section on each prompt page with a one-click clipboard
+  button for the ready-to-paste prompt body
+
 ### Added — 2026-08-19
 
 - `clarify`: prompt to rewrite rough user requests into clear, precise
