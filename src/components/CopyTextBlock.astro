@@ -1,0 +1,64 @@
+---
+interface Props {
+  text: string;
+  label?: string;
+  ariaLabel?: string;
+}
+
+const { text, label, ariaLabel = "Copy text to clipboard" } = Astro.props;
+---
+
+<div>
+  {label && <p class="eyebrow" style="margin-bottom:var(--space-2xs)">{label}</p>}
+  <div class="code-block-shell copy-text-block">
+    <pre class="copy-text" translate="no"><code>{text}</code></pre>
+    <button
+      type="button"
+      class="copy-button"
+      aria-label={ariaLabel}
+      data-copy-text={text}
+    >
+      <svg data-copy-icon width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <svg class="hidden" data-check-icon width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </button>
+    <span class="sr-only" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("click", async (event) => {
+    const target =
+      event.target instanceof Element
+        ? event.target.closest("[data-copy-text]")
+        : null;
+    if (!target) return;
+
+    const text = target.getAttribute("data-copy-text");
+    if (!text) return;
+
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      window.prompt("Copy this text:", text);
+      return;
+    }
+
+    const copyIcon = target.querySelector("[data-copy-icon]");
+    const checkIcon = target.querySelector("[data-check-icon]");
+    if (copyIcon && checkIcon) {
+      copyIcon.classList.add("hidden");
+      checkIcon.classList.remove("hidden");
+      window.clearTimeout(Number(target.getAttribute("data-copy-timeout") || "0"));
+      const timeout = window.setTimeout(() => {
+        copyIcon.classList.remove("hidden");
+        checkIcon.classList.add("hidden");
+      }, 1600);
+      target.setAttribute("data-copy-timeout", String(timeout));
+    }
+  });
+</script>

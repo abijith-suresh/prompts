@@ -264,6 +264,28 @@ h1 {
   white-space: nowrap;
 }
 
+.copy-text-block {
+  align-items: flex-start;
+}
+
+.copy-text {
+  color: var(--color-text);
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: calc(0.45rem + 1em);
+  margin: 0;
+  max-height: 24rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.copy-text code {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 .copy-button {
   align-items: center;
   background: transparent;
