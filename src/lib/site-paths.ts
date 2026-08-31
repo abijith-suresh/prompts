@@ -9,7 +9,7 @@ export function buildPromptPath(basePath: string, slug: string): string {
   const rootPath = buildSiteRootPath(basePath);
   const promptSlug = slug.replace(/^\/+|\/+$/g, "");
 
-  return `${rootPath}${promptSlug}/`;
+  return promptSlug ? `${rootPath}${promptSlug}/` : rootPath;
 }
 
 export function normalizePagePath(pathname: string): string {

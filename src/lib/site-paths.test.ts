@@ -25,6 +25,10 @@ describe("buildPromptPath", () => {
   it("normalizes a base path and slug without trailing slashes", () => {
     expect(buildPromptPath("/catalog", "/hello-world/")).toBe("/catalog/hello-world/");
   });
+
+  it("returns the site root for an empty slug", () => {
+    expect(buildPromptPath("/", "")).toBe("/");
+  });
 });
 
 describe("normalizePagePath", () => {
