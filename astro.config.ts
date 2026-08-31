@@ -1,14 +1,19 @@
 import { satteri } from "@astrojs/markdown-satteri";
+import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 import expressiveCode from "satteri-expressive-code";
+import generatedAssets from "./src/integrations/generated-assets";
+import { removeLeadingHeading } from "./src/lib/remove-leading-heading";
 
 export default defineConfig({
-  site: "https://abijith-suresh.github.io",
-  base: "/prompts",
+  site: "https://prompts-kappa-six.vercel.app",
+  base: "/",
+  output: "static",
   trailingSlash: "always",
   markdown: {
     syntaxHighlight: false,
     processor: satteri({
+      mdastPlugins: [removeLeadingHeading],
       hastPlugins: [
         expressiveCode({
           themes: ["github-dark"],
@@ -39,4 +44,5 @@ export default defineConfig({
       ],
     }),
   },
+  integrations: [generatedAssets(), sitemap()],
 });

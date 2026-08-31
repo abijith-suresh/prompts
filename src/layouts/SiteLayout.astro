@@ -1,14 +1,17 @@
 ---
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import Footer from "../components/Footer.astro";
+import SEO from "../components/SEO.astro";
+import "../styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 const fontsBase = `${import.meta.env.BASE_URL}fonts/`;
+const assetsBase = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -16,13 +19,27 @@ const fontsBase = `${import.meta.env.BASE_URL}fonts/`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#111111" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href={`${fontsBase}IBMPlexSansVar-Roman.woff2`} />
-    <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href={`${fontsBase}IBMPlexMono-Regular.woff2`} />
+    <link rel="icon" type="image/svg+xml" href={`${assetsBase}favicon.svg`} />
+    <link rel="icon" type="image/x-icon" href={`${assetsBase}favicon.ico`} />
+    <link rel="apple-touch-icon" href={`${assetsBase}apple-touch-icon.png`} />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+      href={`${fontsBase}IBMPlexSansVar-Roman.woff2`}
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+      href={`${fontsBase}IBMPlexMono-Regular.woff2`}
+    />
 
-    <title>{title}</title>
+    <SEO title={title} description={description} noindex={noindex} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
