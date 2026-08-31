@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "IBM Plex Sans";
-  src: url("/prompts/fonts/IBMPlexSansVar-Roman.woff2") format("woff2");
+  src: url("/fonts/IBMPlexSansVar-Roman.woff2") format("woff2");
   font-weight: 100 700;
   font-style: normal;
   font-display: swap;
@@ -12,7 +12,7 @@
 
 @font-face {
   font-family: "IBM Plex Sans";
-  src: url("/prompts/fonts/IBMPlexSansVar-Italic.woff2") format("woff2");
+  src: url("/fonts/IBMPlexSansVar-Italic.woff2") format("woff2");
   font-weight: 100 700;
   font-style: italic;
   font-display: swap;
@@ -20,7 +20,7 @@
 
 @font-face {
   font-family: "IBM Plex Mono";
-  src: url("/prompts/fonts/IBMPlexMono-Regular.woff2") format("woff2");
+  src: url("/fonts/IBMPlexMono-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -247,12 +247,36 @@ h1 {
   margin-top: var(--space-xl);
 }
 
-.code-block-shell {
+.code-block-shell,
+.copy-text-block {
   align-items: center;
   background: var(--color-surface);
   display: flex;
   gap: var(--space-2xs);
   padding: var(--space-xs) var(--space-s);
+}
+
+.copy-text-label {
+  margin-bottom: var(--space-2xs);
+}
+
+.copy-text {
+  color: var(--color-text);
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  min-width: 0;
+  margin: 0;
+  max-height: 24rem;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.copy-status {
+  color: var(--color-muted);
+  flex-basis: 100%;
+  font-size: var(--text-sm);
+  min-height: 1.5em;
 }
 
 .command-code {
@@ -272,6 +296,7 @@ h1 {
   cursor: pointer;
   display: inline-flex;
   flex-shrink: 0;
+  gap: var(--space-3xs);
   justify-content: center;
   min-height: 2.75rem;
   min-width: 2.75rem;
@@ -371,6 +396,7 @@ h1 {
   }
 
   .code-block-shell,
+  .copy-text-block,
   .prose pre {
     border: 1px solid ButtonBorder;
   }

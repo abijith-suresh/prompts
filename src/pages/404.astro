@@ -2,10 +2,10 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
-<SiteLayout title="404 | Prompts" description="Page not found">
+<SiteLayout title="404 | Prompts" description="Page not found" noindex>
   <section class="page-shell">
     <p class="eyebrow">404</p>
-    <h1 style="margin-top:var(--space-xs)">Page not found</h1>
+    <h1 id="page-title" style="margin-top:var(--space-xs)">Page not found</h1>
     <p class="page-description" style="margin-top:var(--space-2xs)">
       The prompt you're looking for doesn't exist.
     </p>

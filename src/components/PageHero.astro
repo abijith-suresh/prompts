@@ -3,14 +3,15 @@ interface Props {
   eyebrow?: string;
   title: string;
   description: string;
+  titleId?: string;
 }
 
-const { eyebrow, title, description } = Astro.props;
+const { eyebrow, title, description, titleId = "page-title" } = Astro.props;
 ---
 
 <header class="page-header">
   {eyebrow && <p class="eyebrow" translate="no">{eyebrow}</p>}
-  <h1>{title}</h1>
+  <h1 id={titleId}>{title}</h1>
   <p class="page-description">{description}</p>
 
   <div style="margin-top:var(--space-m)">
