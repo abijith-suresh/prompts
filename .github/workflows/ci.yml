@@ -6,23 +6,41 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  quality:
-    name: quality
+  bun-quality:
     uses: abijith-suresh/workflows/.github/workflows/bun-quality.yml@0f257b2642d2a010fefe0ff9d03374799d73eb44 # v0.3.0
     permissions:
       contents: read
 
   dependency-review:
-    name: dependency-review
+    uses: abijith-suresh/workflows/.github/workflows/dependency-review.yml@0f257b2642d2a010fefe0ff9d03374799d73eb44 # v0.3.0
+    permissions:
+      contents: read
+
+  quality:
+    name: quality
+    if: ${{ always() }}
+    needs: [bun-quality, dependency-review]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
-      - name: Dependency review
-        uses: actions/dependency-review-action@v5
+      - name: Aggregate quality checks
+        env:
+          BUN_QUALITY_RESULT: ${{ needs.bun-quality.result }}
+          DEPENDENCY_REVIEW_RESULT: ${{ needs.dependency-review.result }}
+        run: |
+          set -euo pipefail
+
+          if [[ "$BUN_QUALITY_RESULT" != "success" || "$DEPENDENCY_REVIEW_RESULT" != "success" ]]; then
+            printf 'Bun quality: %s; dependency review: %s\n' "$BUN_QUALITY_RESULT" "$DEPENDENCY_REVIEW_RESULT" >&2
+            exit 1
+          fi
+
+          echo 'Bun quality and dependency review passed.'
