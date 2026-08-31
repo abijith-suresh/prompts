@@ -8,29 +8,8 @@ permissions:
   pull-requests: read
 
 jobs:
-  title-check:
+  pr-title:
+    name: pr-title
     uses: abijith-suresh/workflows/.github/workflows/conventional-commit-title.yml@0f257b2642d2a010fefe0ff9d03374799d73eb44 # v0.3.0
     permissions:
       pull-requests: read
-
-  pr-title:
-    name: pr-title
-    if: ${{ always() }}
-    needs: title-check
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-
-    steps:
-      - name: Aggregate title check
-        env:
-          TITLE_CHECK_RESULT: ${{ needs.title-check.result }}
-        run: |
-          set -euo pipefail
-
-          if [[ "$TITLE_CHECK_RESULT" != "success" ]]; then
-            printf 'Conventional Commit title check: %s\n' "$TITLE_CHECK_RESULT" >&2
-            exit 1
-          fi
-
-          echo 'Conventional Commit title check passed.'

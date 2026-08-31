@@ -48,7 +48,6 @@ export const GET: APIRoute<{ route: OgRoute }> = async ({ props }) => {
   return new Response(new Uint8Array(png), {
     headers: {
       "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=31536000, immutable",
     },
   });
 };
