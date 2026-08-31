@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  bun-quality:
+  quality:
     uses: abijith-suresh/workflows/.github/workflows/bun-quality.yml@0f257b2642d2a010fefe0ff9d03374799d73eb44 # v0.3.0
     permissions:
       contents: read
@@ -22,10 +22,10 @@ jobs:
     permissions:
       contents: read
 
-  quality:
+  quality-gate:
     name: quality
     if: ${{ always() }}
-    needs: [bun-quality, dependency-review]
+    needs: [quality, dependency-review]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Aggregate quality checks
         env:
-          BUN_QUALITY_RESULT: ${{ needs.bun-quality.result }}
+          BUN_QUALITY_RESULT: ${{ needs.quality.result }}
           DEPENDENCY_REVIEW_RESULT: ${{ needs.dependency-review.result }}
         run: |
           set -euo pipefail
