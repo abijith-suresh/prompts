@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { buildPromptSummaries, directorySlugFromEntry } from "./prompt-catalog";
+import {
+  buildPromptSourceUrl,
+  buildPromptSummaries,
+  directorySlugFromEntry,
+} from "./prompt-catalog";
 
 describe("directorySlugFromEntry", () => {
   it("uses the first path segment as the prompt slug", () => {
@@ -8,6 +12,14 @@ describe("directorySlugFromEntry", () => {
 
   it("falls back to the entry when no path separator is present", () => {
     expect(directorySlugFromEntry("PROMPT.md")).toBe("PROMPT.md");
+  });
+});
+
+describe("buildPromptSourceUrl", () => {
+  it("builds the source URL for a prompt directory", () => {
+    expect(buildPromptSourceUrl("owner/repo", "hello-world")).toBe(
+      "https://github.com/owner/repo/tree/main/prompts/hello-world"
+    );
   });
 });
 

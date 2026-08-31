@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import PageHero from "../components/PageHero.astro";
+import { SITE } from "../consts";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { buildPromptSummaries, PROMPTS_REPOSITORY } from "../lib/prompt-catalog";
 import { buildPromptPath } from "../lib/site-paths";
@@ -11,11 +12,11 @@ const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
 
 <SiteLayout
   title="Prompts"
-  description="Browse personal AI prompts for coding agents and chat applications. Copy what you need."
+  description={SITE.description}
 >
   <section class="page-shell" aria-labelledby="page-title">
     <PageHero
-      eyebrow="abijith-suresh/prompts"
+      eyebrow={SITE.repository}
       title="Prompts"
       description="Reusable prompts for AI coding agents and chat apps. Copy, paste, run."
     />

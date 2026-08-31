@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — 2026-08-31
+
+- Prepare the catalog for root-hosted Vercel static builds with generated previews,
+  icons, SEO metadata, sitemap, robots, and accessible prompt copying.
+- Align Bun, Node, Astro, TypeScript, and shared CI workflow versions with the
+  common baseline.
+
 ### Removed — 2026-08-25
 
 - `hello-world`: sample prompt used only to verify the docs site build

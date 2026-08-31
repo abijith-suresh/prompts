@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prompts-kappa-six.vercel.app/sitemap-index.xml

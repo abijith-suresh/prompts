@@ -1,4 +1,6 @@
-export const PROMPTS_REPOSITORY = "abijith-suresh/prompts";
+import { SITE } from "../consts";
+
+export const PROMPTS_REPOSITORY = SITE.repository;
 
 export interface PromptSummary {
   slug: string;
@@ -13,14 +15,18 @@ export function directorySlugFromEntry(entry: string): string {
 
 export function buildPromptSummaries(
   definitions: { id: string; data: { name: string; description: string } }[],
-  repository = PROMPTS_REPOSITORY
+  repository: string = PROMPTS_REPOSITORY
 ): PromptSummary[] {
   return definitions
     .map((definition) => ({
       slug: definition.id,
       name: definition.data.name,
       description: definition.data.description,
-      sourceUrl: `https://github.com/${repository}/tree/main/prompts/${definition.id}`,
+      sourceUrl: buildPromptSourceUrl(repository, definition.id),
     }))
     .sort((left, right) => left.name.localeCompare(right.name));
+}
+
+export function buildPromptSourceUrl(repository: string, slug: string): string {
+  return `https://github.com/${repository}/tree/main/prompts/${slug}`;
 }
