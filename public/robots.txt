@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://prompts-kappa-six.vercel.app/sitemap-index.xml
+Sitemap: https://prompts.abijith.sh/sitemap-index.xml

@@ -6,7 +6,7 @@ import generatedAssets from "./src/integrations/generated-assets";
 import { removeLeadingHeading } from "./src/lib/remove-leading-heading";
 
 export default defineConfig({
-  site: "https://prompts-kappa-six.vercel.app",
+  site: "https://prompts.abijith.sh",
   base: "/",
   output: "static",
   trailingSlash: "always",
