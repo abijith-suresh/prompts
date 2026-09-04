@@ -118,6 +118,12 @@ a {
   touch-action: manipulation;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-l);
+}
+
 ::selection {
   background: oklch(70.6% 0.078 302 / 0.92);
   color: var(--color-ink);
@@ -195,7 +201,6 @@ a {
   font-weight: 500;
   letter-spacing: var(--letter-spacing-uppercase);
   line-height: 1;
-  text-transform: uppercase;
 }
 
 /* ── Typography — Bricolage Grotesque display headings ────────────────── */
@@ -224,6 +229,36 @@ h1 {
   font-weight: 600;
   font-size: clamp(1.4rem, 3vw, 1.75rem);
   letter-spacing: -0.01em;
+}
+
+/* The Dusk Aurora signature: a glowing pink period. The glow lives on a
+   layered copy so its intensity can breathe by animating opacity instead
+   of repainting text-shadow. */
+.period {
+  position: relative;
+  display: inline-block;
+  color: var(--color-pink);
+}
+
+.period::after {
+  content: ".";
+  position: absolute;
+  inset: 0;
+  color: var(--color-pink);
+  text-shadow:
+    0 0 18px oklch(70.6% 0.078 302 / 0.6),
+    0 0 36px oklch(83.9% 0.069 3 / 0.4);
+  pointer-events: none;
+  animation: glow-breathe 22s ease-in-out infinite alternate;
+}
+
+@keyframes glow-breathe {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .page-description {
@@ -341,12 +376,23 @@ h1 {
   border-color: var(--color-primary);
 }
 
+/* ── Prompt detail page — composed rhythm, hairline dividers ─────────── */
+
 .detail-section {
-  margin-top: var(--space-xl);
+  margin-top: var(--space-2xl);
 }
 
-.code-block-shell,
-.copy-text-block {
+.detail-section .section-header {
+  padding-top: var(--space-m);
+  margin-bottom: var(--space-m);
+}
+
+.page-shell > h1 {
+  margin-bottom: var(--space-2xs);
+  letter-spacing: -0.015em;
+}
+
+.code-block-shell {
   align-items: center;
   background: var(--color-surface);
   border: 1px solid var(--ring);
@@ -360,23 +406,43 @@ h1 {
   margin-bottom: var(--space-2xs);
 }
 
+/* Full prompt body with a compact copy affordance in the top-right corner.
+   The block is a column: head row (status + button), then the scrollable
+   text. Never a flex row — the status line once claimed flex-basis: 100%
+   here and collapsed the text to zero width. */
+.copy-text-block {
+  background: var(--color-card);
+  border: 1px solid var(--ring);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.copy-text-head {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2xs);
+  justify-content: flex-end;
+  padding: var(--space-2xs) var(--space-2xs) 0;
+}
+
 .copy-text {
   color: var(--color-text);
-  flex: 1;
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  min-width: 0;
+  line-height: 1.6;
   margin: 0;
   max-height: 24rem;
   overflow: auto;
+  overflow-wrap: break-word;
+  padding: var(--space-xs) var(--space-s) var(--space-s);
   white-space: pre-wrap;
 }
 
 .copy-status {
   color: var(--color-muted);
-  flex-basis: 100%;
-  font-size: var(--text-sm);
-  min-height: 1.5em;
+  font-size: var(--text-xs);
 }
 
 .command-code {
@@ -392,21 +458,25 @@ h1 {
   align-items: center;
   background: transparent;
   border: 0;
-  border-radius: 0.625rem;
+  border-radius: 0.5rem;
   color: var(--color-muted);
   cursor: pointer;
   display: inline-flex;
   flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
   gap: var(--space-3xs);
   justify-content: center;
-  min-height: 2.75rem;
-  min-width: 2.75rem;
-  padding: var(--space-3xs);
-  transition: color var(--transition);
+  min-height: 2rem;
+  padding: 0.3rem 0.55rem;
+  transition:
+    color var(--transition),
+    background var(--transition);
 }
 
 .copy-button:hover {
-  color: var(--color-text);
+  background: var(--color-surface);
+  color: var(--color-primary);
 }
 
 .hidden {
@@ -558,6 +628,10 @@ h1 {
   }
 
   .rise {
+    animation: none;
+  }
+
+  .period::after {
     animation: none;
   }
 }

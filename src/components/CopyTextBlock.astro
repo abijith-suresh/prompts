@@ -11,23 +11,25 @@ const { text, label, ariaLabel = "Copy prompt to clipboard" } = Astro.props;
 <div>
   {label && <p class="eyebrow copy-text-label">{label}</p>}
   <div class="copy-text-block">
+    <div class="copy-text-head">
+      <span class="copy-status" data-copy-status aria-live="polite"></span>
+      <button
+        type="button"
+        class="copy-button"
+        aria-label={ariaLabel}
+        data-copy-text={text}
+      >
+        <svg data-copy-icon width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+        <svg class="hidden" data-check-icon width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+        <span data-copy-label>Copy prompt</span>
+      </button>
+    </div>
     <pre class="copy-text" translate="no"><code>{text}</code></pre>
-    <button
-      type="button"
-      class="copy-button"
-      aria-label={ariaLabel}
-      data-copy-text={text}
-    >
-      <svg data-copy-icon width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="9" y="9" width="13" height="13" rx="2" />
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-      </svg>
-      <svg class="hidden" data-check-icon width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-      <span data-copy-label>Copy prompt</span>
-    </button>
-    <span class="copy-status" data-copy-status aria-live="polite"></span>
   </div>
 </div>
 
@@ -60,7 +62,7 @@ const { text, label, ariaLabel = "Copy prompt to clipboard" } = Astro.props;
     const checkIcon = target.querySelector<SVGElement>("[data-check-icon]");
 
     if (!copied) {
-      if (status) status.textContent = "Copy failed. Select the prompt text above to copy it.";
+      if (status) status.textContent = "Copy failed. Select the prompt text below to copy it.";
       return;
     }
 

@@ -14,6 +14,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   hero treatment, and staggered rise reveals (disabled under
   `prefers-reduced-motion`).
 - Regenerate OG images and favicons with the Dusk Aurora palette.
+- Translate the Dusk Aurora intent to prompt detail pages: fix the copy block
+  collapsing to an empty panel (the status line claimed the flex row, sizing
+  the prompt text to zero width) by showing the full prompt body with a
+  compact corner copy affordance, restyle markdown rules as quiet hairlines,
+  drop the uppercase eyebrow transform in favour of small lowercase mono
+  labels, add the glowing-period title treatment, and open up the section
+  rhythm with hairline dividers.
 
 ### Changed — 2026-08-31
 

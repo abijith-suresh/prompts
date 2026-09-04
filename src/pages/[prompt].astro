@@ -33,12 +33,14 @@ const { Content } = await render(definition);
 <SiteLayout title={`${definition.data.name} | Prompts`} description={definition.data.description}>
   <article class="page-shell">
     <nav class="breadcrumb eyebrow rise" style="--d: 0ms" aria-label="Breadcrumb">
-      <a href={import.meta.env.BASE_URL}>Prompts</a>
+      <a href={import.meta.env.BASE_URL}>prompts</a>
       <span aria-hidden="true">/</span>
       <span translate="no">{definition.data.name}</span>
     </nav>
 
-    <h1 class="rise" style="--d: 80ms" translate="no">{definition.data.name}</h1>
+    <h1 class="rise" style="--d: 80ms" translate="no">
+      {definition.data.name}<span class="period" aria-hidden="true">.</span>
+    </h1>
     <a
       class="text-link rise"
       style="--d: 160ms"
@@ -51,7 +53,7 @@ const { Content } = await render(definition);
 
     <section class="detail-section rise" style="--d: 240ms" aria-labelledby="prompt-description-title">
       <div class="section-header">
-        <h2 id="prompt-description-title" class="eyebrow">Description</h2>
+        <h2 id="prompt-description-title" class="eyebrow">description</h2>
       </div>
       <p class="page-description">{definition.data.description}</p>
     </section>
@@ -63,7 +65,7 @@ const { Content } = await render(definition);
         aria-labelledby="copy-prompt-title"
       >
         <div class="section-header">
-          <h2 id="copy-prompt-title" class="eyebrow">Copy prompt</h2>
+          <h2 id="copy-prompt-title" class="eyebrow">copy prompt</h2>
         </div>
         <p class="page-description">Paste this into an AI chat application or coding agent.</p>
         <CopyTextBlock
@@ -79,7 +81,7 @@ const { Content } = await render(definition);
       aria-labelledby="prompt-content-title"
     >
       <div class="section-header">
-        <h2 id="prompt-content-title" class="eyebrow">PROMPT.md</h2>
+        <h2 id="prompt-content-title" class="eyebrow">prompt.md</h2>
       </div>
       <div class="prose">
         <Content />
