@@ -1,12 +1,9 @@
 ---
 import { getCollection, getEntry, render } from "astro:content";
 
-import CopyTextBlock from "../components/CopyTextBlock.astro";
+import CopyPromptButton from "../components/CopyPromptButton.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
-import {
-  buildPromptSourceUrl,
-  PROMPTS_REPOSITORY,
-} from "../lib/prompt-catalog";
+import { buildPromptSourceUrl, PROMPTS_REPOSITORY } from "../lib/prompt-catalog";
 import { extractPromptBody } from "../lib/extract-prompt-body";
 
 export async function getStaticPaths() {
@@ -32,52 +29,32 @@ const { Content } = await render(definition);
 
 <SiteLayout title={`${definition.data.name} | Prompts`} description={definition.data.description}>
   <article class="page-shell">
-    <nav class="breadcrumb eyebrow rise" style="--d: 0ms" aria-label="Breadcrumb">
-      <a href={import.meta.env.BASE_URL}>prompts</a>
-      <span aria-hidden="true">/</span>
-      <span translate="no">{definition.data.name}</span>
-    </nav>
-
-    <h1 class="rise" style="--d: 80ms" translate="no">
-      {definition.data.name}<span class="period" aria-hidden="true">.</span>
-    </h1>
-    <a
-      class="text-link rise"
-      style="--d: 160ms"
-      href={buildPromptSourceUrl(PROMPTS_REPOSITORY, definition.id)}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      View source on GitHub<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
-    </a>
-
-    <section class="detail-section rise" style="--d: 240ms" aria-labelledby="prompt-description-title">
-      <div class="section-header">
-        <h2 id="prompt-description-title" class="eyebrow">description</h2>
-      </div>
+    <header class="page-header rise" style="--d: 0ms">
+      <h1 id="page-title" translate="no">
+        {definition.data.name}<span class="period" aria-hidden="true">.</span>
+      </h1>
       <p class="page-description">{definition.data.description}</p>
-    </section>
-
-    {promptBody && (
-      <section
-        class="detail-section rise"
-        style="--d: 320ms"
-        aria-labelledby="copy-prompt-title"
-      >
-        <div class="section-header">
-          <h2 id="copy-prompt-title" class="eyebrow">copy prompt</h2>
-        </div>
-        <p class="page-description">Paste this into an AI chat application or coding agent.</p>
-        <CopyTextBlock
-          text={promptBody}
-          ariaLabel={`Copy ${definition.data.name} prompt to clipboard`}
-        />
-      </section>
-    )}
+      <div class="detail-actions">
+        {promptBody && (
+          <CopyPromptButton
+            text={promptBody}
+            ariaLabel={`Copy ${definition.data.name} prompt to clipboard`}
+          />
+        )}
+        <a
+          class="text-link"
+          href={buildPromptSourceUrl(PROMPTS_REPOSITORY, definition.id)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          view source<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
+        </a>
+      </div>
+    </header>
 
     <section
       class="detail-section rise"
-      style={promptBody ? "--d: 400ms" : "--d: 320ms"}
+      style={promptBody ? "--d: 160ms" : "--d: 80ms"}
       aria-labelledby="prompt-content-title"
     >
       <div class="section-header">

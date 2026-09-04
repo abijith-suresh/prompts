@@ -6,6 +6,7 @@ export interface PromptSummary {
   slug: string;
   name: string;
   description: string;
+  featured: boolean;
   sourceUrl: string;
 }
 
@@ -14,7 +15,14 @@ export function directorySlugFromEntry(entry: string): string {
 }
 
 export function buildPromptSummaries(
-  definitions: { id: string; data: { name: string; description: string } }[],
+  definitions: {
+    id: string;
+    data: {
+      name: string;
+      description: string;
+      metadata?: Record<string, unknown>;
+    };
+  }[],
   repository: string = PROMPTS_REPOSITORY
 ): PromptSummary[] {
   return definitions
@@ -22,6 +30,7 @@ export function buildPromptSummaries(
       slug: definition.id,
       name: definition.data.name,
       description: definition.data.description,
+      featured: definition.data.metadata?.featured === true,
       sourceUrl: buildPromptSourceUrl(repository, definition.id),
     }))
     .sort((left, right) => left.name.localeCompare(right.name));

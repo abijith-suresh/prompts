@@ -3,6 +3,7 @@ import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/geist";
 import Footer from "../components/Footer.astro";
 import SEO from "../components/SEO.astro";
+import { buildPromptPath } from "../lib/site-paths";
 import "../styles/global.css";
 
 interface Props {
@@ -43,11 +44,11 @@ const assetsBase = import.meta.env.BASE_URL;
 
     <header class="site-topbar">
       <div class="topbar-inner">
-        <a class="brand" href={import.meta.env.BASE_URL}>prompts.abijith.sh</a>
+        <a class="brand" href={import.meta.env.BASE_URL}>
+          prompts<span class="period" aria-hidden="true">.</span>
+        </a>
         <nav class="topnav" aria-label="Primary">
-          <a href="https://github.com/abijith-suresh/prompts" target="_blank" rel="noopener noreferrer">
-            github<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
-          </a>
+          <a href={buildPromptPath(import.meta.env.BASE_URL, "all")}>all</a>
           <a href="https://abijith.sh" target="_blank" rel="noopener noreferrer">
             abijith.sh<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
           </a>
@@ -118,6 +119,11 @@ const assetsBase = import.meta.env.BASE_URL;
 
   .brand:hover {
     color: var(--color-primary);
+  }
+
+  /* The pink period reads at nav size with a quieter glow than page titles. */
+  .brand .period::after {
+    text-shadow: 0 0 12px oklch(70.6% 0.078 302 / 0.45);
   }
 
   .topnav {

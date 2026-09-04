@@ -21,6 +21,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   drop the uppercase eyebrow transform in favour of small lowercase mono
   labels, add the glowing-period title treatment, and open up the section
   rhythm with hairline dividers.
+- Widen the page container to the main site's 64rem measure with gutters of
+  `clamp(1.25rem, 5vw, 2.5rem)`; long-form prose on detail pages keeps its
+  nested 70ch measure.
+- Shorten the topbar brand to "prompts." (display font, quiet pink period) and
+  restructure the topbar to brand + "all" + "abijith.sh ↗", moving the GitHub
+  link to the footer beside the abijith.sh link.
+- Restructure the homepage as favourites: featured prompts (marked via a new
+  optional `metadata` record in the content schema, e.g.
+  `metadata: { featured: true }` — `clarify` is featured) under a "favourite
+  prompts" section head with an "all prompts →" link that appears once the
+  catalog grows beyond the featured set.
+- Add an `/all/` page listing every prompt as a card stack, with SEO metadata,
+  a dedicated OG image route, and sitemap inclusion.
+- Redesign prompt detail pages read-first: drop the breadcrumb eyebrow and the
+  duplicated mono copy panel, keep the rendered prompt as the body, and pair
+  the title + lede with a quiet hairline "copy prompt" button (copies the full
+  raw prompt to the clipboard with a brief "copied" confirmation) and a muted
+  "view source ↗" link.
 
 ### Changed — 2026-08-31
 

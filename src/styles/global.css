@@ -57,10 +57,10 @@
   --space-xl: clamp(3rem, 2.8613rem + 0.6764vw, 3.375rem);
   --space-2xl: clamp(4rem, 3.8151rem + 0.9019vw, 4.5rem);
 
-  --page-inline: var(--space-m);
+  --page-inline: clamp(1.25rem, 5vw, 2.5rem);
   --page-top: clamp(3rem, 2.5377rem + 2.255vw, 4.25rem);
   --page-bottom: var(--space-2xl);
-  --container: 44rem;
+  --container: 64rem;
   --transition: 150ms ease;
   --transition-lift: 200ms ease;
   --letter-spacing-uppercase: 0.04em;
@@ -272,6 +272,14 @@ h1 {
   margin-bottom: var(--space-s);
 }
 
+.section-header-row {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-m);
+  justify-content: space-between;
+}
+
 .content-list {
   list-style: none;
   margin: 0;
@@ -387,100 +395,48 @@ h1 {
   margin-bottom: var(--space-m);
 }
 
-.page-shell > h1 {
-  margin-bottom: var(--space-2xs);
-  letter-spacing: -0.015em;
+.hidden {
+  display: none;
 }
 
-.code-block-shell {
-  align-items: center;
-  background: var(--color-surface);
-  border: 1px solid var(--ring);
-  border-radius: 1rem;
-  display: flex;
-  gap: var(--space-2xs);
-  padding: var(--space-xs) var(--space-s);
-}
+/* ── Detail page meta actions — quiet copy button + source link ───────── */
 
-.copy-text-label {
-  margin-bottom: var(--space-2xs);
-}
-
-/* Full prompt body with a compact copy affordance in the top-right corner.
-   The block is a column: head row (status + button), then the scrollable
-   text. Never a flex row — the status line once claimed flex-basis: 100%
-   here and collapsed the text to zero width. */
-.copy-text-block {
-  background: var(--color-card);
-  border: 1px solid var(--ring);
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.copy-text-head {
+.detail-actions {
   align-items: center;
   display: flex;
-  gap: var(--space-2xs);
-  justify-content: flex-end;
-  padding: var(--space-2xs) var(--space-2xs) 0;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+  margin-top: var(--space-xs);
 }
 
-.copy-text {
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  line-height: 1.6;
-  margin: 0;
-  max-height: 24rem;
-  overflow: auto;
-  overflow-wrap: break-word;
-  padding: var(--space-xs) var(--space-s) var(--space-s);
-  white-space: pre-wrap;
-}
-
-.copy-status {
-  color: var(--color-muted);
-  font-size: var(--text-xs);
-}
-
-.command-code {
-  color: var(--color-text);
-  flex: 1;
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.copy-button {
+.copy-prompt-button {
   align-items: center;
   background: transparent;
-  border: 0;
+  border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   color: var(--color-muted);
   cursor: pointer;
   display: inline-flex;
-  flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+  font-weight: 500;
   gap: var(--space-3xs);
   justify-content: center;
   min-height: 2rem;
-  padding: 0.3rem 0.55rem;
+  padding: 0.3rem 0.7rem;
   transition:
-    color var(--transition),
-    background var(--transition);
+    border-color var(--transition),
+    color var(--transition);
 }
 
-.copy-button:hover {
-  background: var(--color-surface);
+.copy-prompt-button:hover {
+  border-color: oklch(70.6% 0.078 302 / 0.45);
   color: var(--color-primary);
 }
 
-.hidden {
-  display: none;
+.copy-prompt-button[data-copied] {
+  border-color: oklch(70.6% 0.078 302 / 0.45);
+  color: var(--color-primary);
 }
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
@@ -593,8 +549,7 @@ h1 {
     outline-offset: 2px;
   }
 
-  .code-block-shell,
-  .copy-text-block,
+  .copy-prompt-button,
   .prompt-card,
   .prose pre {
     border: 1px solid ButtonBorder;
@@ -612,7 +567,7 @@ h1 {
   }
 
   .site-footer,
-  .code-block-shell,
+  .prompt-card,
   .prose pre {
     border-color: #ccc;
   }

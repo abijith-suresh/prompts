@@ -1,6 +1,8 @@
 ---
 name: Clarify
 description: Rewrite rough user prompts into clear, precise prompts for a coding agent using terminology compression.
+metadata:
+  featured: true
 ---
 
 # Clarify
