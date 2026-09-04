@@ -22,7 +22,7 @@ const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
 
     <ul class="content-list prompt-grid">
       {prompts.map((prompt, i) => (
-        <li class="rise" style={`--d: ${80 + i * 80}ms`}>
+        <li class="rise" style={`--d: ${160 + Math.min(i, 7) * 70}ms`}>
           <a href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)} class="prompt-card">
             <span class="prompt-card-title" translate="no">{prompt.name}</span>
             <span class="prompt-card-description">{prompt.description}</span>

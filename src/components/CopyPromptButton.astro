@@ -30,7 +30,19 @@ const { text, ariaLabel = "Copy prompt to clipboard" } = Astro.props;
     }
   }
 
-  document.addEventListener("click", async (event) => {
+  // ClientRouter keeps the document (and this module-level listener) alive
+  // across soft navigations, so a single delegated listener keeps covering
+  // buttons rendered by later pages. init is idempotent so replayed
+  // astro:page-load events never double-bind.
+  let bound = false;
+
+  function init() {
+    if (bound) return;
+    bound = true;
+    document.addEventListener("click", onCopyClick);
+  }
+
+  async function onCopyClick(event: MouseEvent) {
     const target =
       event.target instanceof Element
         ? event.target.closest<HTMLButtonElement>("[data-copy-text]")
@@ -64,5 +76,8 @@ const { text, ariaLabel = "Copy prompt to clipboard" } = Astro.props;
         checkIcon?.classList.add("hidden");
       }, 1600)
     );
-  });
+  }
+
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>

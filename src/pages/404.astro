@@ -3,21 +3,20 @@ import { buildPageTitle } from "../consts";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
-<SiteLayout title={buildPageTitle("404")} description="Page not found" noindex>
+<SiteLayout title={buildPageTitle("page not found")} description="Page not found" noindex>
   <section class="page-shell">
-    <p class="eyebrow rise" style="--d: 0ms">404</p>
-    <h1 id="page-title" class="rise" style="--d: 80ms; margin-top:var(--space-xs)">
+    <h1 id="page-title" class="hero-title rise" style="--d: 0ms">
       page not found<span class="period" aria-hidden="true">.</span>
     </h1>
-    <p class="page-description rise" style="--d: 160ms; margin-top:var(--space-2xs)">
-      The prompt you're looking for doesn't exist.
+    <p class="page-description rise" style="--d: 60ms; margin-top:var(--space-2xs)">
+      the page you're looking for doesn't exist or has been moved.
     </p>
     <a
       href={import.meta.env.BASE_URL}
-      class="text-link rise"
-      style="--d: 240ms; margin-top:var(--space-l)"
+      class="text-link back-link rise"
+      style="--d: 120ms; margin-top:var(--space-l)"
     >
-      back to prompts <span class="arrow" aria-hidden="true">→</span>
+      <span class="arrow" aria-hidden="true">←</span> back to prompts
     </a>
   </section>
 </SiteLayout>

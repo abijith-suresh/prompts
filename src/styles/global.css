@@ -51,7 +51,8 @@
   --text-sm: clamp(0.875rem, 0.8519rem + 0.1127vw, 0.9375rem);
   --text-base: clamp(1rem, 0.9538rem + 0.2255vw, 1.125rem);
   --text-lg: clamp(1.125rem, 1.0418rem + 0.4059vw, 1.35rem);
-  --text-title: clamp(1.75rem, 1.2877rem + 2.255vw, 3rem);
+  --text-hero: clamp(2.25rem, 1.5rem + 3vw, 3.25rem);
+  --text-page: clamp(1.75rem, 1.2877rem + 2.255vw, 3rem);
 
   --space-3xs: clamp(0.25rem, 0.2269rem + 0.1127vw, 0.3125rem);
   --space-2xs: clamp(0.5rem, 0.4769rem + 0.1127vw, 0.5625rem);
@@ -225,9 +226,14 @@ h6 {
 }
 
 h1 {
-  font-size: var(--text-title);
+  font-size: var(--text-page);
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+/* Landing hero and 404 title sit one role above inner page headers. */
+.hero-title {
+  font-size: var(--text-hero);
 }
 
 .section-title {
@@ -321,8 +327,8 @@ h1 {
   color: var(--color-text);
   font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: var(--letter-spacing-tight);
+  font-weight: 650;
+  letter-spacing: -0.01em;
   line-height: calc(0.35rem + 1em);
 }
 
@@ -340,7 +346,7 @@ h1 {
   margin-top: auto;
   padding-top: 0.75rem;
   color: var(--color-muted);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   transition: color var(--transition-lift);
 }
 
@@ -467,15 +473,14 @@ h1 {
 
 .footer-meta {
   color: var(--color-muted);
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
 }
 
 .footer-meta p {
   margin: 0;
 }
 
-.footer-link,
-.text-link {
+.footer-link {
   align-items: center;
   color: var(--color-muted);
   display: inline-flex;
@@ -484,9 +489,36 @@ h1 {
   transition: color var(--transition);
 }
 
-.footer-link:hover,
+.footer-link:hover {
+  color: var(--color-primary);
+}
+
+/* Inline text links carry a persistent subtle underline (muted at half
+   alpha) so they read as links without hover, brightening to primary. */
+.text-link {
+  color: var(--color-muted);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: oklch(69.7% 0.028 300 / 0.5);
+  text-underline-offset: 3px;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
 .text-link:hover {
   color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
+}
+
+/* The 404 back link quiets to text on hover instead of primary. */
+.back-link:hover {
+  color: var(--color-text);
+  text-decoration-color: var(--color-text);
+}
+
+.back-link:hover .arrow {
+  transform: translateX(-3px);
 }
 
 /* ── Prose — prompt content under the Dusk Aurora palette ─────────────── */
@@ -514,9 +546,11 @@ h1 {
 .prose :where(a):not(:where(.not-prose, .not-prose *)) {
   color: var(--color-text);
   text-decoration: underline;
-  text-decoration-color: var(--color-border);
+  text-decoration-color: oklch(69.7% 0.028 300 / 0.5);
   text-underline-offset: 3px;
-  transition: color var(--transition);
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
 }
 
 .prose :where(a:hover):not(:where(.not-prose, .not-prose *)) {

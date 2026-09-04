@@ -52,8 +52,8 @@ async function renderOgSvg(route: OgRoute) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#2b2535",
-          color: "#ece7f1",
+          backgroundColor: "#1a1823",
+          color: "#e0ddef",
           padding: 72,
           fontFamily: "IBM Plex Sans",
         },
@@ -73,7 +73,7 @@ async function renderOgSvg(route: OgRoute) {
                     style: {
                       width: "100%",
                       height: 1,
-                      backgroundColor: "#403b49",
+                      backgroundColor: "#312f39",
                     },
                   },
                 },
@@ -90,7 +90,7 @@ async function renderOgSvg(route: OgRoute) {
                         type: "div",
                         props: {
                           style: {
-                            color: "#a9a2b4",
+                            color: "#a09aad",
                             fontFamily: "IBM Plex Mono",
                             fontSize: 24,
                             fontWeight: 500,
@@ -127,7 +127,7 @@ async function renderOgSvg(route: OgRoute) {
                             display: "flex",
                             flexDirection: "column",
                             gap: 8,
-                            color: "#a9a2b4",
+                            color: "#a09aad",
                             fontSize: 32,
                             lineHeight: 1.25,
                           },
@@ -168,7 +168,7 @@ async function renderOgSvg(route: OgRoute) {
                     style: {
                       width: "100%",
                       height: 1,
-                      backgroundColor: "#403b49",
+                      backgroundColor: "#312f39",
                     },
                   },
                 },
@@ -199,11 +199,11 @@ async function renderIconSvg(size: number) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#2b2535",
-          borderRadius: size * 0.18,
-          color: "#ece7f1",
+          backgroundColor: "#1a1823",
+          borderRadius: size * 0.16,
+          color: "#e0ddef",
           fontFamily: "IBM Plex Sans",
-          fontSize: size * 0.55,
+          fontSize: size * 0.52,
           fontWeight: 500,
           letterSpacing: "-0.02em",
           lineHeight: 1,
@@ -212,7 +212,11 @@ async function renderIconSvg(size: number) {
           {
             type: "span",
             props: {
-              style: { color: "#ece7f1" },
+              style: {
+                color: "#e0ddef",
+                // Optically centered: nudge up ~6% of the glyph size.
+                transform: `translateY(${size * 0.52 * -0.06}px)`,
+              },
               children: SITE.mark,
             },
           },

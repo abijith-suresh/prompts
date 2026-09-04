@@ -4,14 +4,16 @@ interface Props {
   title: string;
   description: string;
   titleId?: string;
+  /** Landing heroes render at --text-hero; inner page headers stay --text-page. */
+  hero?: boolean;
 }
 
-const { eyebrow, title, description, titleId = "page-title" } = Astro.props;
+const { eyebrow, title, description, titleId = "page-title", hero = false } = Astro.props;
 ---
 
-<header class="page-header">
+<header class="page-header rise" style="--d: 0ms">
   {eyebrow && <p class="eyebrow" translate="no">{eyebrow}</p>}
-  <h1 id={titleId}>
+  <h1 id={titleId} class:list={[hero && "hero-title"]}>
     {title}<span class="period" aria-hidden="true">.</span>
   </h1>
   <p class="page-description">{description}</p>

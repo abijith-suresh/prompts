@@ -8,6 +8,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed — 2026-09-04
 
+- Apply the Dusk Aurora House Standard v1: swap the OG/favicon palette to the
+  canonical sRGB conversions (#1a1823/#e0ddef/#a09aad/#312f39) plus the
+  matching `theme-color`, redraw the "as." favicon geometry (tile radius 16%,
+  glyph at 0.52× with a -6% optical nudge), split type roles into `--text-hero`
+  (landing + 404, clamp to 3.25rem) and `--text-page` (inner page headers),
+  tokenise brand/nav/footer/card-foot sizes, give card titles weight 650,
+  add persistent muted-underline styling to inline text and prose links,
+  adopt ClientRouter with a persisted aurora glow and an idempotent
+  `astro:page-load` re-init for the copy-prompt listener, align rise
+  choreography to header 0ms → content 80ms → cards 160ms + 70ms·i (capped at
+  8 items), and rebuild the 404 as the canonical left-aligned template with a
+  "page not found · prompts.abijith.sh" title.
 - Rework the footer link row as "github ↗ · abijith.sh ↗", dropping the
   "part of" wording while keeping both links.
 - Redraw the favicon and touch icon as an "as." monogram — lowercase

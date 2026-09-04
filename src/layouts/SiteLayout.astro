@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/geist";
 import Footer from "../components/Footer.astro";
@@ -23,7 +24,7 @@ const assetsBase = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#2b2535" />
+    <meta name="theme-color" content="#1a1823" />
     <link rel="icon" type="image/svg+xml" href={`${assetsBase}favicon.svg`} />
     <link rel="icon" type="image/x-icon" href={`${assetsBase}favicon.ico`} />
     <link rel="apple-touch-icon" href={`${assetsBase}apple-touch-icon.png`} />
@@ -35,12 +36,14 @@ const assetsBase = import.meta.env.BASE_URL;
       href={`${fontsBase}IBMPlexMono-Regular.woff2`}
     />
 
+    <ClientRouter />
+
     <SEO title={title} description={description} noindex={noindex} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
 
-    <div class="aurora-glow" aria-hidden="true"></div>
+    <div class="aurora-glow" aria-hidden="true" transition:persist="aurora-glow"></div>
 
     <header class="site-topbar">
       <div class="topbar-inner">
@@ -110,7 +113,7 @@ const assetsBase = import.meta.env.BASE_URL;
   .brand {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: var(--text-base);
     letter-spacing: var(--letter-spacing-tight);
     color: var(--color-text);
     text-decoration: none;
@@ -134,7 +137,7 @@ const assetsBase = import.meta.env.BASE_URL;
 
   .topnav a {
     color: var(--color-muted);
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     transition: color var(--transition);
   }
 

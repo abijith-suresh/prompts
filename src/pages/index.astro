@@ -17,6 +17,7 @@ const featured = prompts.filter((prompt) => prompt.featured);
 >
   <section class="page-shell" aria-labelledby="page-title">
     <PageHero
+      hero
       title="prompts"
       description="Reusable prompts for AI coding agents and chat apps. Copy, paste, run."
     />
@@ -30,7 +31,7 @@ const featured = prompts.filter((prompt) => prompt.featured);
 
     <ul class="content-list prompt-grid">
       {featured.map((prompt, i) => (
-        <li class="rise" style={`--d: ${160 + i * 80}ms`}>
+        <li class="rise" style={`--d: ${160 + Math.min(i, 7) * 70}ms`}>
           <a href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)} class="prompt-card">
             <span class="prompt-card-title" translate="no">{prompt.name}</span>
             <span class="prompt-card-description">{prompt.description}</span>
