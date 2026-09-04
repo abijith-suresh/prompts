@@ -95,7 +95,6 @@ async function renderOgSvg(route: OgRoute) {
                             fontSize: 24,
                             fontWeight: 500,
                             letterSpacing: 3,
-                            textTransform: "uppercase",
                           },
                           children: route.kind,
                         },
@@ -201,25 +200,32 @@ async function renderIconSvg(size: number) {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#2b2535",
+          borderRadius: size * 0.18,
           color: "#ece7f1",
           fontFamily: "IBM Plex Sans",
-          fontSize: size * 0.32,
+          fontSize: size * 0.55,
           fontWeight: 500,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
         },
-        children: {
-          type: "div",
-          props: {
-            style: {
-              width: size * 0.68,
-              height: size * 0.68,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: `${size * 0.012}px solid #403b49`,
+        children: [
+          {
+            type: "span",
+            props: {
+              style: { color: "#ece7f1" },
+              children: SITE.mark,
             },
-            children: SITE.mark,
           },
-        },
+          {
+            // The Dusk Aurora signature: the pink period
+            // (var(--color-pink), oklch(83.9% 0.069 3)).
+            type: "span",
+            props: {
+              style: { color: "#f2b8c6" },
+              children: ".",
+            },
+          },
+        ],
       },
     },
     {

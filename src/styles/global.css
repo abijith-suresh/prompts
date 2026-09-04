@@ -42,6 +42,11 @@
   --ring: oklch(100% 0 0 / 0.08);
   --ring-hover: oklch(100% 0 0 / 0.15);
 
+  /* Signature glows — the glowing period and quiet primary accents */
+  --glow-primary: oklch(70.6% 0.078 302 / 0.6);
+  --glow-pink: oklch(83.9% 0.069 3 / 0.4);
+  --color-primary-soft: oklch(70.6% 0.078 302 / 0.45);
+
   --text-xs: clamp(0.8125rem, 0.7894rem + 0.1127vw, 0.875rem);
   --text-sm: clamp(0.875rem, 0.8519rem + 0.1127vw, 0.9375rem);
   --text-base: clamp(1rem, 0.9538rem + 0.2255vw, 1.125rem);
@@ -63,6 +68,7 @@
   --container: 64rem;
   --transition: 150ms ease;
   --transition-lift: 200ms ease;
+  --letter-spacing-tight: -0.01em;
   --letter-spacing-uppercase: 0.04em;
 
   color-scheme: dark;
@@ -213,7 +219,7 @@ h5,
 h6 {
   font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--letter-spacing-tight);
   line-height: calc(0.35rem + 1em);
   text-wrap: balance;
 }
@@ -228,7 +234,7 @@ h1 {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(1.4rem, 3vw, 1.75rem);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 /* The Dusk Aurora signature: a glowing pink period. The glow lives on a
@@ -246,8 +252,8 @@ h1 {
   inset: 0;
   color: var(--color-pink);
   text-shadow:
-    0 0 18px oklch(70.6% 0.078 302 / 0.6),
-    0 0 36px oklch(83.9% 0.069 3 / 0.4);
+    0 0 18px var(--glow-primary),
+    0 0 36px var(--glow-pink);
   pointer-events: none;
   animation: glow-breathe 22s ease-in-out infinite alternate;
 }
@@ -267,7 +273,6 @@ h1 {
 }
 
 .section-header {
-  border-top: 1px solid var(--color-border);
   padding-top: var(--space-s);
   margin-bottom: var(--space-s);
 }
@@ -317,7 +322,7 @@ h1 {
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--letter-spacing-tight);
   line-height: calc(0.35rem + 1em);
 }
 
@@ -391,6 +396,7 @@ h1 {
 }
 
 .detail-section .section-header {
+  border-top: 1px solid var(--color-border);
   padding-top: var(--space-m);
   margin-bottom: var(--space-m);
 }
@@ -430,12 +436,12 @@ h1 {
 }
 
 .copy-prompt-button:hover {
-  border-color: oklch(70.6% 0.078 302 / 0.45);
+  border-color: var(--color-primary-soft);
   color: var(--color-primary);
 }
 
 .copy-prompt-button[data-copied] {
-  border-color: oklch(70.6% 0.078 302 / 0.45);
+  border-color: var(--color-primary-soft);
   color: var(--color-primary);
 }
 

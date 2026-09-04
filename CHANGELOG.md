@@ -8,6 +8,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed — 2026-09-04
 
+- Rework the footer link row as "github ↗ · abijith.sh ↗", dropping the
+  "part of" wording while keeping both links.
+- Redraw the favicon and touch icon as an "as." monogram — lowercase
+  letterforms with the pink Dusk Aurora period (exact `--color-pink`
+  conversion) on a rounded dark-violet tile, sized for legibility at 16px
+  and marking the site as part of the abijith.sh family.
+- Drop the hairline divider between the homepage hero and the "favourite
+  prompts" section head (detail pages keep their section hairlines) and
+  always render the "all prompts →" link now that `/all/` exists.
+- Lowercase the `clarify` prompt's frontmatter name so cards and detail
+  titles follow the site's lowercase convention.
+- Rebuild page titles as lowercase "<page> · prompts.abijith.sh" via a new
+  `buildPageTitle` helper (the home page is the bare domain), lowercase the
+  OG image display titles ("prompts", "all prompts"), and drop the uppercase
+  transform on the OG kind eyebrow in favour of the site's lowercase mono
+  labels.
+- Design-token audit: add `--glow-primary`, `--glow-pink`, and
+  `--color-primary-soft` for the signature glow and quiet-accent alphas plus
+  `--letter-spacing-tight` for display letter-spacing; route the glowing
+  period, copy-button hover ring, brand glow, and heading/card letter
+  spacing through them; scope the section hairline to detail pages; and
+  deduplicate the `.period` glow styles previously copied into PageHero and
+  the 404 page (global styles already cover both).
 - Adopt the Dusk Aurora design system across the site: OKLCH violet palette,
   Bricolage Grotesque display + Geist body typography, a fixed breathing aurora
   glow, site topbar and footer chrome, card-based prompt list, glowing-period

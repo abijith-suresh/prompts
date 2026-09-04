@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import PageHero from "../components/PageHero.astro";
+import { buildPageTitle } from "../consts";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { buildPromptSummaries, PROMPTS_REPOSITORY } from "../lib/prompt-catalog";
 import { buildPromptPath } from "../lib/site-paths";
@@ -10,7 +11,7 @@ const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
 ---
 
 <SiteLayout
-  title="All prompts | Prompts"
+  title={buildPageTitle("all prompts")}
   description="Every reusable AI prompt in the collection — for coding agents and chat apps. Copy what you need."
 >
   <section class="page-shell" aria-labelledby="page-title">

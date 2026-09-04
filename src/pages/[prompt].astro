@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from "astro:content";
 
 import CopyPromptButton from "../components/CopyPromptButton.astro";
+import { buildPageTitle } from "../consts";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { buildPromptSourceUrl, PROMPTS_REPOSITORY } from "../lib/prompt-catalog";
 import { extractPromptBody } from "../lib/extract-prompt-body";
@@ -27,7 +28,7 @@ const promptBody = definition.body ? extractPromptBody(definition.body) : null;
 const { Content } = await render(definition);
 ---
 
-<SiteLayout title={`${definition.data.name} | Prompts`} description={definition.data.description}>
+<SiteLayout title={buildPageTitle(definition.data.name)} description={definition.data.description}>
   <article class="page-shell">
     <header class="page-header rise" style="--d: 0ms">
       <h1 id="page-title" translate="no">
