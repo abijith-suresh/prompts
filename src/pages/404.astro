@@ -4,13 +4,55 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <SiteLayout title="404 | Prompts" description="Page not found" noindex>
   <section class="page-shell">
-    <p class="eyebrow">404</p>
-    <h1 id="page-title" style="margin-top:var(--space-xs)">Page not found</h1>
-    <p class="page-description" style="margin-top:var(--space-2xs)">
+    <p class="eyebrow rise" style="--d: 0ms">404</p>
+    <h1 id="page-title" class="rise" style="--d: 80ms; margin-top:var(--space-xs)">
+      page not found<span class="period" aria-hidden="true">.</span>
+    </h1>
+    <p class="page-description rise" style="--d: 160ms; margin-top:var(--space-2xs)">
       The prompt you're looking for doesn't exist.
     </p>
-    <a href={import.meta.env.BASE_URL} class="text-link" style="display:inline-block;margin-top:var(--space-l)">
-      Back to prompts
+    <a
+      href={import.meta.env.BASE_URL}
+      class="text-link rise"
+      style="--d: 240ms; margin-top:var(--space-l)"
+    >
+      Back to prompts <span class="arrow" aria-hidden="true">→</span>
     </a>
   </section>
 </SiteLayout>
+
+<style>
+  /* The Dusk Aurora signature: a glowing pink period. */
+  .period {
+    position: relative;
+    display: inline-block;
+    color: var(--color-pink);
+  }
+
+  .period::after {
+    content: ".";
+    position: absolute;
+    inset: 0;
+    color: var(--color-pink);
+    text-shadow:
+      0 0 18px oklch(70.6% 0.078 302 / 0.6),
+      0 0 36px oklch(83.9% 0.069 3 / 0.4);
+    pointer-events: none;
+    animation: glow-breathe 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-breathe {
+    from {
+      opacity: 0.75;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .period::after {
+      animation: none;
+    }
+  }
+</style>

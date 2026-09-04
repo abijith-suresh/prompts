@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed — 2026-09-04
+
+- Adopt the Dusk Aurora design system across the site: OKLCH violet palette,
+  Bricolage Grotesque display + Geist body typography, a fixed breathing aurora
+  glow, site topbar and footer chrome, card-based prompt list, glowing-period
+  hero treatment, and staggered rise reveals (disabled under
+  `prefers-reduced-motion`).
+- Regenerate OG images and favicons with the Dusk Aurora palette.
+
 ### Changed — 2026-08-31
 
 - Prepare the catalog for root-hosted Vercel static builds with generated previews,

@@ -11,10 +11,50 @@ const { eyebrow, title, description, titleId = "page-title" } = Astro.props;
 
 <header class="page-header">
   {eyebrow && <p class="eyebrow" translate="no">{eyebrow}</p>}
-  <h1 id={titleId}>{title}</h1>
+  <h1 id={titleId}>
+    {title}<span class="period" aria-hidden="true">.</span>
+  </h1>
   <p class="page-description">{description}</p>
 
   <div style="margin-top:var(--space-m)">
     <slot name="actions" />
   </div>
 </header>
+
+<style>
+  /* The Dusk Aurora signature: a glowing pink period. The glow lives on a
+     layered copy so its intensity can breathe by animating opacity instead
+     of repainting text-shadow. */
+  .period {
+    position: relative;
+    display: inline-block;
+    color: var(--color-pink);
+  }
+
+  .period::after {
+    content: ".";
+    position: absolute;
+    inset: 0;
+    color: var(--color-pink);
+    text-shadow:
+      0 0 18px oklch(70.6% 0.078 302 / 0.6),
+      0 0 36px oklch(83.9% 0.069 3 / 0.4);
+    pointer-events: none;
+    animation: glow-breathe 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-breathe {
+    from {
+      opacity: 0.75;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .period::after {
+      animation: none;
+    }
+  }
+</style>

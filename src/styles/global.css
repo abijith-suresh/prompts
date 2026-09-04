@@ -1,21 +1,11 @@
+/*
+   Dusk Aurora design system for prompts.abijith.sh.
+   Dark violet, rounded, one glowing accent. Lift + ring, never shadows.
+   Token names are kept from the previous theme; values are remapped.
+*/
+
 :root {
   font-synthesis: none;
-}
-
-@font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/fonts/IBMPlexSansVar-Roman.woff2") format("woff2");
-  font-weight: 100 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/fonts/IBMPlexSansVar-Italic.woff2") format("woff2");
-  font-weight: 100 700;
-  font-style: italic;
-  font-display: swap;
 }
 
 @font-face {
@@ -27,18 +17,30 @@
 }
 
 :root {
-  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     "IBM Plex Mono", ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas,
     "DejaVu Sans Mono", monospace;
 
-  --color-bg: oklch(14.5% 0 0);
-  --color-text: oklch(98.5% 0 0);
-  --color-border: oklch(25% 0 0);
-  --color-muted: color-mix(in oklch, var(--color-text) 60%, transparent);
-  --color-muted-foreground: color-mix(in oklch, var(--color-text) 68%, transparent);
-  --color-surface: color-mix(in oklch, var(--color-text) 6%, transparent);
-  --color-surface-strong: color-mix(in oklch, var(--color-text) 8%, transparent);
+  /* Color palette — Dusk Aurora, dark only, OKLCH */
+  --color-bg: oklch(21.7% 0.0215 293);
+  --color-card: oklch(25.4% 0.03 293);
+  --color-text: oklch(90.5% 0.0245 294);
+  --color-ink: oklch(23% 0.035 296);
+  --color-primary: oklch(70.6% 0.078 302);
+  --color-pink: oklch(83.9% 0.069 3);
+  --color-muted: oklch(69.7% 0.028 300);
+  --color-muted-foreground: oklch(69.7% 0.028 300);
+
+  /* Surfaces and hairlines */
+  --color-border: oklch(100% 0 0 / 0.1);
+  --color-surface: oklch(100% 0 0 / 0.06);
+  --color-surface-strong: oklch(100% 0 0 / 0.08);
+
+  /* Rings — the card hover language: lift + ring brighten, no shadows */
+  --ring: oklch(100% 0 0 / 0.08);
+  --ring-hover: oklch(100% 0 0 / 0.15);
 
   --text-xs: clamp(0.8125rem, 0.7894rem + 0.1127vw, 0.875rem);
   --text-sm: clamp(0.875rem, 0.8519rem + 0.1127vw, 0.9375rem);
@@ -56,10 +58,11 @@
   --space-2xl: clamp(4rem, 3.8151rem + 0.9019vw, 4.5rem);
 
   --page-inline: var(--space-m);
-  --page-top: clamp(4rem, 3.5377rem + 2.255vw, 5.25rem);
+  --page-top: clamp(3rem, 2.5377rem + 2.255vw, 4.25rem);
   --page-bottom: var(--space-2xl);
   --container: 44rem;
   --transition: 150ms ease;
+  --transition-lift: 200ms ease;
   --letter-spacing-uppercase: 0.04em;
 
   color-scheme: dark;
@@ -96,6 +99,8 @@ dd {
 
 body {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
@@ -113,9 +118,32 @@ a {
   touch-action: manipulation;
 }
 
+::selection {
+  background: oklch(70.6% 0.078 302 / 0.92);
+  color: var(--color-ink);
+}
+
 :focus-visible {
-  outline: 2px solid var(--color-text);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── Orchestrated load reveal ─────────────────────────────────────────── */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 560ms cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+  animation-delay: var(--d, 0ms);
 }
 
 .sr-only,
@@ -143,8 +171,8 @@ a {
   overflow: visible;
   clip: auto;
   white-space: normal;
-  background: var(--color-text);
-  color: var(--color-bg);
+  background: var(--color-primary);
+  color: var(--color-ink);
   font-weight: 500;
 }
 
@@ -170,20 +198,32 @@ a {
   text-transform: uppercase;
 }
 
+/* ── Typography — Bricolage Grotesque display headings ────────────────── */
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 500;
-  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: calc(0.35rem + 1em);
   text-wrap: balance;
 }
 
 h1 {
   font-size: var(--text-title);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  letter-spacing: -0.01em;
 }
 
 .page-description {
@@ -194,7 +234,7 @@ h1 {
 .section-header {
   border-top: 1px solid var(--color-border);
   padding-top: var(--space-s);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-s);
 }
 
 .content-list {
@@ -203,31 +243,81 @@ h1 {
   padding: 0;
 }
 
-.ledger-row {
-  display: block;
-  padding-block: var(--space-xs);
-  border-bottom: 1px solid var(--color-border);
-  margin-inline: calc(-1 * var(--page-inline));
-  padding-inline: var(--page-inline);
-  transition: background-color var(--transition);
+/* ── Prompt cards — lift + ring brighten on hover, never shadows ──────── */
+
+.prompt-grid {
+  display: grid;
+  gap: 1rem;
 }
 
-.ledger-row:hover {
-  background: var(--color-surface-strong);
+.prompt-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  height: 100%;
+  background: var(--color-card);
+  border: 1px solid var(--ring);
+  border-radius: 1rem;
+  padding: 1.4rem;
+  transition:
+    transform var(--transition-lift),
+    border-color var(--transition-lift);
 }
 
-.ledger-row-title {
-  display: block;
+.prompt-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ring-hover);
+}
+
+.prompt-card-title {
   color: var(--color-text);
-  font-size: var(--text-base);
-  font-weight: 500;
-  line-height: calc(0.45rem + 1em);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: calc(0.35rem + 1em);
 }
 
-.ledger-row-description {
+.prompt-card-description {
   color: var(--color-muted);
   font-size: var(--text-sm);
-  margin-top: var(--space-3xs);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.prompt-card-foot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  transition: color var(--transition-lift);
+}
+
+.prompt-card:hover .prompt-card-foot {
+  color: var(--color-primary);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--transition-lift);
+}
+
+.prompt-card:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* external ↗ links nudge diagonally */
+.arrow-ext {
+  display: inline-block;
+  transition: transform var(--transition-lift);
+}
+
+.arrow-ext:hover,
+:hover > .arrow-ext {
+  transform: translate(2px, -2px);
 }
 
 .breadcrumb {
@@ -241,6 +331,14 @@ h1 {
 
 .breadcrumb a {
   border-bottom: 1px solid var(--color-border);
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .detail-section {
@@ -251,6 +349,8 @@ h1 {
 .copy-text-block {
   align-items: center;
   background: var(--color-surface);
+  border: 1px solid var(--ring);
+  border-radius: 1rem;
   display: flex;
   gap: var(--space-2xs);
   padding: var(--space-xs) var(--space-s);
@@ -292,6 +392,7 @@ h1 {
   align-items: center;
   background: transparent;
   border: 0;
+  border-radius: 0.625rem;
   color: var(--color-muted);
   cursor: pointer;
   display: inline-flex;
@@ -312,34 +413,51 @@ h1 {
   display: none;
 }
 
+/* ── Footer ───────────────────────────────────────────────────────────── */
+
 .site-footer {
   border-top: 1px solid var(--color-border);
   margin-top: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .site-footer-inner {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-s);
+  gap: 0.5rem 1.5rem;
   justify-content: space-between;
   margin-inline: auto;
   max-width: var(--container);
-  padding: var(--space-m) var(--page-inline);
+  padding: var(--space-m) var(--page-inline) var(--space-xl);
+}
+
+.footer-meta {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.footer-meta p {
+  margin: 0;
 }
 
 .footer-link,
 .text-link {
-  border-bottom: 1px solid var(--color-muted);
+  align-items: center;
+  color: var(--color-muted);
+  display: inline-flex;
+  gap: 0.35rem;
   font-weight: 500;
-  padding-bottom: 0.125rem;
-  transition: border-color var(--transition);
+  transition: color var(--transition);
 }
 
 .footer-link:hover,
 .text-link:hover {
-  border-color: var(--color-text);
+  color: var(--color-primary);
 }
+
+/* ── Prose — prompt content under the Dusk Aurora palette ─────────────── */
 
 .prose {
   color: var(--color-text);
@@ -362,8 +480,16 @@ h1 {
 }
 
 .prose :where(a):not(:where(.not-prose, .not-prose *)) {
-  border-bottom: 1px solid var(--color-muted);
   color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+  transition: color var(--transition);
+}
+
+.prose :where(a:hover):not(:where(.not-prose, .not-prose *)) {
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
 }
 
 .prose :where(code):not(:where(.not-prose, .not-prose *)) {
@@ -372,12 +498,14 @@ h1 {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
 }
 
 .prose :where(pre):not(:where(.not-prose, .not-prose *)) {
   background: var(--color-surface);
   overflow-x: auto;
   padding: var(--space-s);
+  border-radius: 0.75rem;
 }
 
 .prose :where(pre code):not(:where(.not-prose, .not-prose *)) {
@@ -397,6 +525,7 @@ h1 {
 
   .code-block-shell,
   .copy-text-block,
+  .prompt-card,
   .prose pre {
     border: 1px solid ButtonBorder;
   }
@@ -426,5 +555,9 @@ h1 {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
     transition-duration: 0.01ms;
+  }
+
+  .rise {
+    animation: none;
   }
 }

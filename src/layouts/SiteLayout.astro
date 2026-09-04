@@ -1,4 +1,6 @@
 ---
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/geist";
 import Footer from "../components/Footer.astro";
 import SEO from "../components/SEO.astro";
 import "../styles/global.css";
@@ -20,17 +22,10 @@ const assetsBase = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#111111" />
+    <meta name="theme-color" content="#2b2535" />
     <link rel="icon" type="image/svg+xml" href={`${assetsBase}favicon.svg`} />
     <link rel="icon" type="image/x-icon" href={`${assetsBase}favicon.ico`} />
     <link rel="apple-touch-icon" href={`${assetsBase}apple-touch-icon.png`} />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-      href={`${fontsBase}IBMPlexSansVar-Roman.woff2`}
-    />
     <link
       rel="preload"
       as="font"
@@ -43,9 +38,112 @@ const assetsBase = import.meta.env.BASE_URL;
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <div class="aurora-glow" aria-hidden="true"></div>
+
+    <header class="site-topbar">
+      <div class="topbar-inner">
+        <a class="brand" href={import.meta.env.BASE_URL}>prompts.abijith.sh</a>
+        <nav class="topnav" aria-label="Primary">
+          <a href="https://github.com/abijith-suresh/prompts" target="_blank" rel="noopener noreferrer">
+            github<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
+          </a>
+          <a href="https://abijith.sh" target="_blank" rel="noopener noreferrer">
+            abijith.sh<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
     <main id="main-content">
       <slot />
     </main>
     <Footer />
   </body>
 </html>
+
+<style>
+  .aurora-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 62% 46% at 50% 22%,
+      oklch(70.6% 0.078 302 / 0.07),
+      transparent 70%
+    );
+    animation: aurora-breathe 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-breathe {
+    from {
+      opacity: 0.8;
+      filter: hue-rotate(-6deg);
+    }
+    to {
+      opacity: 1;
+      filter: hue-rotate(6deg);
+    }
+  }
+
+  .site-topbar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding-block: 1.5rem 0.25rem;
+  }
+
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.75rem;
+    width: min(100%, var(--container));
+    margin-inline: auto;
+    padding-inline: var(--page-inline);
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .brand:hover {
+    color: var(--color-primary);
+  }
+
+  .topnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+  }
+
+  .topnav a {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    transition: color var(--transition);
+  }
+
+  .topnav a:hover {
+    color: var(--color-text);
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-glow {
+      animation: none;
+    }
+  }
+</style>

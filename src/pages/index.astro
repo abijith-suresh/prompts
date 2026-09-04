@@ -17,20 +17,23 @@ const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
   <section class="page-shell" aria-labelledby="page-title">
     <PageHero
       eyebrow={SITE.repository}
-      title="Prompts"
+      title="prompts"
       description="Reusable prompts for AI coding agents and chat apps. Copy, paste, run."
     />
 
-    <div class="section-header">
-      <h2 class="eyebrow">Prompts</h2>
+    <div class="section-header rise" style="--d: 80ms">
+      <h2 class="section-title">prompts</h2>
     </div>
 
-    <ul class="content-list">
-      {prompts.map((prompt) => (
-        <li>
-          <a href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)} class="ledger-row">
-            <span class="ledger-row-title" translate="no">{prompt.name}</span>
-            <span class="ledger-row-description">{prompt.description}</span>
+    <ul class="content-list prompt-grid">
+      {prompts.map((prompt, i) => (
+        <li class="rise" style={`--d: ${160 + i * 80}ms`}>
+          <a href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)} class="prompt-card">
+            <span class="prompt-card-title" translate="no">{prompt.name}</span>
+            <span class="prompt-card-description">{prompt.description}</span>
+            <span class="prompt-card-foot">
+              read <span class="arrow" aria-hidden="true">→</span>
+            </span>
           </a>
         </li>
       ))}

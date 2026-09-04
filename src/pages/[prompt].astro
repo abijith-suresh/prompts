@@ -32,23 +32,24 @@ const { Content } = await render(definition);
 
 <SiteLayout title={`${definition.data.name} | Prompts`} description={definition.data.description}>
   <article class="page-shell">
-    <nav class="breadcrumb eyebrow" aria-label="Breadcrumb">
+    <nav class="breadcrumb eyebrow rise" style="--d: 0ms" aria-label="Breadcrumb">
       <a href={import.meta.env.BASE_URL}>Prompts</a>
       <span aria-hidden="true">/</span>
       <span translate="no">{definition.data.name}</span>
     </nav>
 
-    <h1 translate="no">{definition.data.name}</h1>
+    <h1 class="rise" style="--d: 80ms" translate="no">{definition.data.name}</h1>
     <a
-      class="text-link"
+      class="text-link rise"
+      style="--d: 160ms"
       href={buildPromptSourceUrl(PROMPTS_REPOSITORY, definition.id)}
       target="_blank"
       rel="noopener noreferrer"
     >
-      View source on GitHub
+      View source on GitHub<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
     </a>
 
-    <section class="detail-section" aria-labelledby="prompt-description-title">
+    <section class="detail-section rise" style="--d: 240ms" aria-labelledby="prompt-description-title">
       <div class="section-header">
         <h2 id="prompt-description-title" class="eyebrow">Description</h2>
       </div>
@@ -56,7 +57,11 @@ const { Content } = await render(definition);
     </section>
 
     {promptBody && (
-      <section class="detail-section" aria-labelledby="copy-prompt-title">
+      <section
+        class="detail-section rise"
+        style="--d: 320ms"
+        aria-labelledby="copy-prompt-title"
+      >
         <div class="section-header">
           <h2 id="copy-prompt-title" class="eyebrow">Copy prompt</h2>
         </div>
@@ -68,7 +73,11 @@ const { Content } = await render(definition);
       </section>
     )}
 
-    <section class="detail-section" aria-labelledby="prompt-content-title">
+    <section
+      class="detail-section rise"
+      style={promptBody ? "--d: 400ms" : "--d: 320ms"}
+      aria-labelledby="prompt-content-title"
+    >
       <div class="section-header">
         <h2 id="prompt-content-title" class="eyebrow">PROMPT.md</h2>
       </div>
