@@ -1,0 +1,33 @@
+---
+import { SITE } from "@/consts";
+
+interface WebSiteSchema {
+  "@context": "https://schema.org";
+  "@type": "WebSite";
+  name: string;
+  description: string;
+  url: string;
+  author: {
+    "@type": "Person";
+    name: string;
+    url: string;
+  };
+  inLanguage: string;
+}
+
+const schema: WebSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.title,
+  description: SITE.description,
+  url: SITE.url,
+  author: {
+    "@type": "Person",
+    name: "abijith suresh",
+    url: "https://abijith.sh",
+  },
+  inLanguage: "en-US",
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

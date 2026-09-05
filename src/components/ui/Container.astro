@@ -1,0 +1,15 @@
+---
+interface Props {
+  class?: string;
+  style?: string;
+}
+
+const { class: className, style: styleStr } = Astro.props;
+---
+
+<div
+  style={`margin-inline:auto; width:100%; max-width:var(--container); padding-inline:var(--page-inline);${styleStr ? ` ${styleStr}` : ""}`}
+  class={className}
+>
+  <slot />
+</div>

@@ -1,21 +1,20 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/geist";
-import Footer from "../components/Footer.astro";
-import SEO from "../components/SEO.astro";
-import { buildPromptPath } from "../lib/site-paths";
-import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import Footer from "@/components/Footer.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import SEO, { type SEOProps } from "@/components/seo/SEO.astro";
+import { buildAllPath, buildAssetPath } from "@/lib/site-paths";
+import baseCss from "@/styles/base.css?raw";
+import tokensCss from "@/styles/tokens.css?raw";
+import "@/styles/global.css";
 
-interface Props {
-  title: string;
-  description: string;
-  noindex?: boolean;
-}
+interface Props extends SEOProps {}
 
 const { title, description, noindex = false } = Astro.props;
-const fontsBase = `${import.meta.env.BASE_URL}fonts/`;
-const assetsBase = import.meta.env.BASE_URL;
+const fontMonoUrl = buildAssetPath(import.meta.env.BASE_URL, "fonts/IBMPlexMono-Regular.woff2");
+const criticalCss = `${tokensCss}\n${baseCss}`;
 ---
 
 <!doctype html>
@@ -25,36 +24,30 @@ const assetsBase = import.meta.env.BASE_URL;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#141414" />
-    <link rel="icon" type="image/svg+xml" href={`${assetsBase}favicon.svg`} />
-    <link rel="icon" type="image/x-icon" href={`${assetsBase}favicon.ico`} />
-    <link rel="apple-touch-icon" href={`${assetsBase}apple-touch-icon.png`} />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-      href={`${fontsBase}IBMPlexMono-Regular.woff2`}
-    />
-
     <ClientRouter />
+    <link rel="icon" type="image/svg+xml" href={buildAssetPath(import.meta.env.BASE_URL, "favicon.svg")} />
+    <link rel="icon" type="image/x-icon" href={buildAssetPath(import.meta.env.BASE_URL, "favicon.ico")} sizes="32x32" />
+    <link rel="apple-touch-icon" href={buildAssetPath(import.meta.env.BASE_URL, "apple-touch-icon.png")} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href={fontMonoUrl} />
+
+    <style is:inline set:html={criticalCss}></style>
 
     <SEO title={title} description={description} noindex={noindex} />
+    <JsonLd />
   </head>
-  <body>
-    <a href="#main-content" class="skip-link">skip to content</a>
-
+  <body style="display:flex;height:fit-content;min-height:100vh;flex-direction:column">
+    <a href={buildAssetPath(import.meta.env.BASE_URL, "#main-content")} class="skip-link">skip to content</a>
     <header class="site-topbar">
       <div class="topbar-inner">
         <a class="brand" href={import.meta.env.BASE_URL}>prompts</a>
         <nav class="topnav" aria-label="Primary">
-          <a href={buildPromptPath(import.meta.env.BASE_URL, "all")}>all</a>
+          <a href={buildAllPath(import.meta.env.BASE_URL)}>all</a>
           <a href="https://abijith.sh" target="_blank" rel="noopener noreferrer">
-            abijith.sh<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
+            abijith.sh <span class="ext-arrow" aria-hidden="true">&nearr;</span>
           </a>
         </nav>
       </div>
     </header>
-
     <main id="main-content">
       <slot />
     </main>
@@ -63,23 +56,32 @@ const assetsBase = import.meta.env.BASE_URL;
 </html>
 
 <style>
-  .site-topbar {
+  .site-topbar,
+  .site-footer {
     position: relative;
     z-index: var(--z-content);
+    width: 100%;
+  }
+
+  .topbar-inner {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--page-inline);
+  }
+
+  .site-topbar {
     display: flex;
     align-items: center;
     padding-block: 1.5rem 0.25rem;
   }
 
-  .topbar-inner {
+  .site-topbar .topbar-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.75rem 1.75rem;
-    width: min(100%, var(--container));
-    margin-inline: auto;
-    padding-inline: var(--page-inline);
+    width: 100%;
   }
 
   .brand {
@@ -99,7 +101,7 @@ const assetsBase = import.meta.env.BASE_URL;
   .topnav {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 1.4rem;
+    gap: var(--gap-wrap);
   }
 
   .topnav a {
@@ -110,6 +112,44 @@ const assetsBase = import.meta.env.BASE_URL;
 
   .topnav a:hover {
     color: var(--color-text);
+  }
+
+  .ext-arrow {
+    display: inline-block;
+    transition: transform var(--transition-lift);
+  }
+
+  a:hover .ext-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .skip-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .skip-link:focus {
+    position: fixed;
+    top: var(--space-s);
+    left: var(--space-s);
+    z-index: var(--z-skip-link);
+    width: auto;
+    height: auto;
+    padding: var(--space-xs) var(--space-s);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background-color: oklch(100% 0 0);
+    color: var(--color-ink);
+    font-weight: 500;
   }
 
   main {

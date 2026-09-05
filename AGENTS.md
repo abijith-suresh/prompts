@@ -65,6 +65,15 @@ Review the changes in this PR and provide:
 
 ---
 
+## Site layout
+
+- `src/consts.ts` holds site-wide config (URLs, titles, descriptions).
+- `src/styles/` holds the design tokens, base styles, and component styles.
+- `src/components/seo/` holds the SEO meta and structured data components.
+- Use `@/` path alias for all imports from `src/`.
+
+---
+
 ## Adding or updating a prompt
 
 1. Create or edit the prompt file in the appropriate category directory

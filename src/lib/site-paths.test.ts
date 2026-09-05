@@ -1,29 +1,25 @@
 import { describe, expect, it } from "vitest";
-import {
-  buildOgImagePath,
-  buildPromptPath,
-  buildSiteRootPath,
-  getOgImagePath,
-  normalizePagePath,
-} from "./site-paths";
+import { buildAllPath, buildAssetPath, buildCanonicalUrl, buildPromptPath } from "@/lib/site-paths";
 
-describe("buildSiteRootPath", () => {
-  it("keeps the root base path root-safe", () => {
-    expect(buildSiteRootPath("/")).toBe("/");
+describe("buildAssetPath", () => {
+  it("keeps root-hosted assets at the root", () => {
+    expect(buildAssetPath("/", "fonts/IBMPlexMono-Regular.woff2")).toBe(
+      "/fonts/IBMPlexMono-Regular.woff2"
+    );
   });
 
-  it("normalizes a non-root base path", () => {
-    expect(buildSiteRootPath("/catalog")).toBe("/catalog/");
+  it("normalizes a base path before appending an asset", () => {
+    expect(buildAssetPath("/docs", "/fonts/site.woff2")).toBe("/docs/fonts/site.woff2");
   });
 });
 
 describe("buildPromptPath", () => {
-  it("builds a trailing-slash route at the site root", () => {
-    expect(buildPromptPath("/", "hello-world")).toBe("/hello-world/");
+  it("builds a root-hosted trailing-slash route", () => {
+    expect(buildPromptPath("/", "clarify")).toBe("/clarify/");
   });
 
   it("normalizes a base path and slug without trailing slashes", () => {
-    expect(buildPromptPath("/catalog", "/hello-world/")).toBe("/catalog/hello-world/");
+    expect(buildPromptPath("/catalog", "/clarify/")).toBe("/catalog/clarify/");
   });
 
   it("returns the site root for an empty slug", () => {
@@ -31,20 +27,20 @@ describe("buildPromptPath", () => {
   });
 });
 
-describe("normalizePagePath", () => {
-  it("normalizes the home path and query strings", () => {
-    expect(normalizePagePath("/")).toBe("/");
-    expect(normalizePagePath("/hello-world?source=share")).toBe("/hello-world/");
+describe("buildAllPath", () => {
+  it("builds a root-hosted all-prompts route", () => {
+    expect(buildAllPath("/")).toBe("/all/");
   });
 });
 
-describe("OG image paths", () => {
-  it("uses index for the home image", () => {
-    expect(getOgImagePath("/")).toBe("/og/index.png");
+describe("buildCanonicalUrl", () => {
+  it("normalizes the route and preserves the trailing slash", () => {
+    expect(buildCanonicalUrl("/clarify", "https://example.com")).toBe(
+      "https://example.com/clarify/"
+    );
   });
 
-  it("maps a prompt route to its static image", () => {
-    expect(getOgImagePath("/hello-world/")).toBe("/og/hello-world.png");
-    expect(buildOgImagePath("hello-world")).toBe("/og/hello-world.png");
+  it("returns the site root for an empty path", () => {
+    expect(buildCanonicalUrl("", "https://example.com")).toBe("https://example.com/");
   });
 });

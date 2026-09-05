@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-import { directorySlugFromEntry } from "./lib/prompt-catalog";
+import { directorySlugFromEntry } from "@/lib/prompt-catalog";
 
 const promptDefinitions = defineCollection({
   loader: glob({
@@ -13,7 +13,9 @@ const promptDefinitions = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
-    metadata: z.record(z.string(), z.unknown()).optional(),
+    // The prompts are plain copy-paste files; site curation flags live here,
+    // never as new top-level frontmatter keys that could break the format.
+    metadata: z.looseObject({ featured: z.boolean().optional() }).optional(),
   }),
 });
 

@@ -2,13 +2,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { Resvg } from "@resvg/resvg-js";
 import satori from "satori";
-import { SITE } from "../consts";
-
-export interface OgRoute {
-  title: string;
-  description: string;
-  kind: "catalog" | "prompt";
-}
+import { SITE } from "@/consts";
+import type { OgRoute } from "@/lib/route-metadata";
 
 type SatoriFonts = Awaited<ReturnType<typeof loadFontsInternal>>;
 
@@ -26,6 +21,7 @@ const OG_TEXT = "#e8e8e8";
 const OG_MUTED = "#a3a3a3";
 const OG_HAIRLINE = "#2c2c2c";
 const OG_PINK = "#f2b8c6";
+const SITE_DOMAIN = new URL(SITE.url).hostname;
 let fontCache: SatoriFonts | undefined;
 
 export async function renderOgPng(route: OgRoute) {
@@ -106,7 +102,7 @@ async function renderOgSvg(route: OgRoute) {
                             fontWeight: 500,
                             letterSpacing: 3,
                           },
-                          children: route.kind,
+                          children: route.label,
                         },
                       },
                       {
@@ -169,7 +165,7 @@ async function renderOgSvg(route: OgRoute) {
                       fontSize: 28,
                       fontWeight: 500,
                     },
-                    children: SITE.domain,
+                    children: SITE_DOMAIN,
                   },
                 },
                 {

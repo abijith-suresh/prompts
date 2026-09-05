@@ -1,4 +1,4 @@
-import { SITE } from "../consts";
+import { SITE } from "@/consts";
 
 export const PROMPTS_REPOSITORY = SITE.repository;
 
@@ -12,6 +12,14 @@ export interface PromptSummary {
 
 export function directorySlugFromEntry(entry: string): string {
   return entry.split("/")[0] ?? entry;
+}
+
+export function buildRepositoryUrl(repository: string = PROMPTS_REPOSITORY) {
+  return `https://github.com/${repository}`;
+}
+
+export function buildPromptSourceUrl(repository: string, slug: string): string {
+  return `${buildRepositoryUrl(repository)}/tree/main/prompts/${slug}`;
 }
 
 export function buildPromptSummaries(
@@ -34,8 +42,4 @@ export function buildPromptSummaries(
       sourceUrl: buildPromptSourceUrl(repository, definition.id),
     }))
     .sort((left, right) => left.name.localeCompare(right.name));
-}
-
-export function buildPromptSourceUrl(repository: string, slug: string): string {
-  return `https://github.com/${repository}/tree/main/prompts/${slug}`;
 }

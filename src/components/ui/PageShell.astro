@@ -1,0 +1,47 @@
+---
+import Container from "@/components/ui/Container.astro";
+import PageHeader from "@/components/ui/PageHeader.astro";
+
+interface Props {
+  /** Page title — renders the shared PageHeader inside the shell */
+  title?: string;
+  /** Subtitle / description below the title */
+  subtitle?: string;
+  /** Landing heroes and the 404 step up from the inner-page default */
+  hero?: boolean;
+  /** Additional CSS class for the outer wrapper */
+  class?: string;
+}
+
+const { title, subtitle, hero = false, class: className } = Astro.props;
+---
+
+<div class:list={["page-shell", className]}>
+  <div class="page-shell-header">
+    <Container>
+      {title && <PageHeader title={title} subtitle={subtitle} hero={hero} />}
+      <slot name="header" />
+    </Container>
+  </div>
+  <Container>
+    <slot />
+  </Container>
+</div>
+
+<style>
+  .page-shell {
+    width: 100%;
+    margin-inline: auto;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding-bottom: var(--page-block-end);
+  }
+
+  /* air between the page header and the first section — kept tight so
+     title, subtitle, and content read as one unit */
+  .page-shell-header {
+    padding-top: var(--page-block-start);
+    padding-bottom: clamp(2.25rem, 5vh, 3.5rem);
+  }
+</style>
