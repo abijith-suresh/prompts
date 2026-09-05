@@ -16,6 +16,16 @@ const PUBLIC_DIR = "public";
 const ASSET_FONT_DIR = "src/assets/fonts";
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
+
+// Satori needs sRGB hex, so the Dusk Aurora CSS tokens are mirrored here.
+// These are the canonical conversions from the monochrome chrome standard:
+// --color-bg, --color-text, --color-muted-foreground, the composited
+// hairline, and --color-pink (oklch(83.9% 0.069 3)).
+const OG_BG = "#141414";
+const OG_TEXT = "#e8e8e8";
+const OG_MUTED = "#a3a3a3";
+const OG_HAIRLINE = "#2c2c2c";
+const OG_PINK = "#f2b8c6";
 let fontCache: SatoriFonts | undefined;
 
 export async function renderOgPng(route: OgRoute) {
@@ -52,8 +62,8 @@ async function renderOgSvg(route: OgRoute) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#1a1823",
-          color: "#e0ddef",
+          backgroundColor: OG_BG,
+          color: OG_TEXT,
           padding: 72,
           fontFamily: "IBM Plex Sans",
         },
@@ -73,7 +83,7 @@ async function renderOgSvg(route: OgRoute) {
                     style: {
                       width: "100%",
                       height: 1,
-                      backgroundColor: "#312f39",
+                      backgroundColor: OG_HAIRLINE,
                     },
                   },
                 },
@@ -90,7 +100,7 @@ async function renderOgSvg(route: OgRoute) {
                         type: "div",
                         props: {
                           style: {
-                            color: "#a09aad",
+                            color: OG_MUTED,
                             fontFamily: "IBM Plex Mono",
                             fontSize: 24,
                             fontWeight: 500,
@@ -127,7 +137,7 @@ async function renderOgSvg(route: OgRoute) {
                             display: "flex",
                             flexDirection: "column",
                             gap: 8,
-                            color: "#a09aad",
+                            color: OG_MUTED,
                             fontSize: 32,
                             lineHeight: 1.25,
                           },
@@ -168,7 +178,7 @@ async function renderOgSvg(route: OgRoute) {
                     style: {
                       width: "100%",
                       height: 1,
-                      backgroundColor: "#312f39",
+                      backgroundColor: OG_HAIRLINE,
                     },
                   },
                 },
@@ -199,9 +209,9 @@ async function renderIconSvg(size: number) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#1a1823",
+          backgroundColor: OG_BG,
           borderRadius: size * 0.16,
-          color: "#e0ddef",
+          color: OG_TEXT,
           fontFamily: "IBM Plex Sans",
           fontSize: size * 0.52,
           fontWeight: 500,
@@ -213,7 +223,7 @@ async function renderIconSvg(size: number) {
             type: "span",
             props: {
               style: {
-                color: "#e0ddef",
+                color: OG_TEXT,
                 // Optically centered: nudge up ~6% of the glyph size.
                 transform: `translateY(${size * 0.52 * -0.06}px)`,
               },
@@ -225,7 +235,7 @@ async function renderIconSvg(size: number) {
             // (var(--color-pink), oklch(83.9% 0.069 3)).
             type: "span",
             props: {
-              style: { color: "#f2b8c6" },
+              style: { color: OG_PINK },
               children: ".",
             },
           },

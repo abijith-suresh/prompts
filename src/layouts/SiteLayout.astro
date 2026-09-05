@@ -24,7 +24,7 @@ const assetsBase = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#1a1823" />
+    <meta name="theme-color" content="#141414" />
     <link rel="icon" type="image/svg+xml" href={`${assetsBase}favicon.svg`} />
     <link rel="icon" type="image/x-icon" href={`${assetsBase}favicon.ico`} />
     <link rel="apple-touch-icon" href={`${assetsBase}apple-touch-icon.png`} />
@@ -41,15 +41,11 @@ const assetsBase = import.meta.env.BASE_URL;
     <SEO title={title} description={description} noindex={noindex} />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
-
-    <div class="aurora-glow" aria-hidden="true" transition:persist="aurora-glow"></div>
+    <a href="#main-content" class="skip-link">skip to content</a>
 
     <header class="site-topbar">
       <div class="topbar-inner">
-        <a class="brand" href={import.meta.env.BASE_URL}>
-          prompts<span class="period" aria-hidden="true">.</span>
-        </a>
+        <a class="brand" href={import.meta.env.BASE_URL}>prompts</a>
         <nav class="topnav" aria-label="Primary">
           <a href={buildPromptPath(import.meta.env.BASE_URL, "all")}>all</a>
           <a href="https://abijith.sh" target="_blank" rel="noopener noreferrer">
@@ -67,33 +63,9 @@ const assetsBase = import.meta.env.BASE_URL;
 </html>
 
 <style>
-  .aurora-glow {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse 62% 46% at 50% 22%,
-      oklch(70.6% 0.078 302 / 0.07),
-      transparent 70%
-    );
-    animation: aurora-breathe 22s ease-in-out infinite alternate;
-  }
-
-  @keyframes aurora-breathe {
-    from {
-      opacity: 0.8;
-      filter: hue-rotate(-6deg);
-    }
-    to {
-      opacity: 1;
-      filter: hue-rotate(6deg);
-    }
-  }
-
   .site-topbar {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-content);
     display: flex;
     align-items: center;
     padding-block: 1.5rem 0.25rem;
@@ -115,18 +87,13 @@ const assetsBase = import.meta.env.BASE_URL;
     font-weight: 700;
     font-size: var(--text-base);
     letter-spacing: var(--letter-spacing-tight);
-    color: var(--color-text);
+    color: var(--color-muted-foreground);
     text-decoration: none;
-    transition: color var(--transition);
+    transition: color var(--transition-base);
   }
 
   .brand:hover {
-    color: var(--color-primary);
-  }
-
-  /* The pink period reads at nav size with a quieter glow than page titles. */
-  .brand .period::after {
-    text-shadow: 0 0 12px var(--color-primary-soft);
+    color: var(--color-text);
   }
 
   .topnav {
@@ -136,9 +103,9 @@ const assetsBase = import.meta.env.BASE_URL;
   }
 
   .topnav a {
-    color: var(--color-muted);
+    color: var(--color-muted-foreground);
     font-size: var(--text-sm);
-    transition: color var(--transition);
+    transition: color var(--transition-base);
   }
 
   .topnav a:hover {
@@ -147,12 +114,10 @@ const assetsBase = import.meta.env.BASE_URL;
 
   main {
     position: relative;
-    z-index: 1;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .aurora-glow {
-      animation: none;
-    }
+    z-index: var(--z-content);
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
   }
 </style>

@@ -8,6 +8,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed — 2026-09-05
 
+- Migrate the site to the monochrome chrome standard the main site adopted:
+  neutral hueless surfaces (oklch(20.8% 0 0) background ≈ #141414) with no UI
+  accent — hovers, links, eyebrows, selection, and focus rings are white or
+  neutral — and the pink palette color survives only as the signature: the
+  glowing period and the "as." favicon period. The site-wide breathing aurora
+  glow is removed; the design is flat, and only the period's glow-breathe
+  remains.
+- Move OG images and site icons to the canonical sRGB set (#141414
+  background, #e8e8e8 text, #a3a3a3 muted, #2c2c2c hairlines) with the
+  theme-color meta updated to match; the "as." monogram keeps its shared
+  geometry on the neutral tile.
+- Adopt the main site's link language: inline text and prose links carry a
+  persistent quiet underline (1px, white at 35% alpha) that brightens to 90%
+  on hover, instead of violet color-only links; the topbar brand is plain
+  "prompts" (the pink period lives only in page headers and the favicon).
+- Align chrome with the main site: eyebrows render as lowercase neutral mono
+  (0.08em tracking), the skip link and focus ring are white-on-neutral,
+  section heads use the main site's baseline row with a neutral "all prompts
+  →" link, card feet stop hovering to an accent color, the copy affordance
+  hovers neutral, and the footer credits read "abijith suresh".
+- Update the shared type tokens: --text-hero now renders 40px on small
+  phones and 60px on desktop (previously 36–52px) with display tracking on
+  hero titles and 650-weight heading tracking on inner page headers; prose
+  gains the main site's heading scale (h2/h3/h4 sizes with shared margins);
+  tokens are renamed to the shared names (--radius-card, --leading-*,
+  --step-*, glow color/duration tokens, letter-spacing tokens, --gap-icon).
+- Center the 404 page vertically like the main site's template: the
+  "page not found." stack sits in the viewport's middle with a symmetric
+  safety padding.
+- Gate card hover effects (lift and ring brighten) behind hover-capable
+  pointers so touch devices no longer trigger the animation mid-scroll; fix
+  expressive-code tab colors referencing the removed --color-muted token
+  (they now use --color-muted-foreground).
+
 - Apply the Dusk Aurora House Standard v1: swap the OG/favicon palette to the
   canonical sRGB conversions (#1a1823/#e0ddef/#a09aad/#312f39) plus the
   matching `theme-color`, redraw the "as." favicon geometry (tile radius 16%,
