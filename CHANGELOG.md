@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### Changed — 2026-09-04
+### Changed — 2026-09-05
 
 - Apply the Dusk Aurora House Standard v1: swap the OG/favicon palette to the
   canonical sRGB conversions (#1a1823/#e0ddef/#a09aad/#312f39) plus the
