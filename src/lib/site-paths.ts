@@ -1,33 +1,31 @@
-export function buildSiteRootPath(basePath: string): string {
-  if (!basePath || basePath === "/") return "/";
+import { SITE } from "@/consts";
 
-  const path = basePath.replace(/^\/+|\/+$/g, "");
-  return path ? `/${path}/` : "/";
+export function normalizeBaseUrl(baseUrl: string) {
+  if (!baseUrl || baseUrl === "/") return "/";
+  return `/${baseUrl.replace(/^\/+|\/+$/g, "")}/`;
 }
 
-export function buildPromptPath(basePath: string, slug: string): string {
-  const rootPath = buildSiteRootPath(basePath);
-  const promptSlug = slug.replace(/^\/+|\/+$/g, "");
-
-  return promptSlug ? `${rootPath}${promptSlug}/` : rootPath;
+export function buildAssetPath(baseUrl: string, assetPath: string) {
+  const normalizedBase = normalizeBaseUrl(baseUrl);
+  const normalizedAsset = assetPath.replace(/^\/+/, "");
+  return normalizedBase === "/" ? `/${normalizedAsset}` : `${normalizedBase}${normalizedAsset}`;
 }
 
-export function normalizePagePath(pathname: string): string {
+export function buildPromptPath(baseUrl: string, slug: string) {
+  return buildAssetPath(baseUrl, `${slug.replace(/^\/+|\/+$/g, "")}/`);
+}
+
+export function buildAllPath(baseUrl: string) {
+  return buildAssetPath(baseUrl, "all/");
+}
+
+export function normalizePagePath(pathname: string) {
   if (!pathname || pathname === "/") return "/";
-
-  const pathOnly = pathname.split(/[?#]/)[0] ?? pathname;
+  const [pathOnly] = pathname.split(/[?#]/);
   const trimmed = pathOnly.replace(/^\/+|\/+$/g, "");
   return trimmed ? `/${trimmed}/` : "/";
 }
 
-export function buildOgImagePath(slug: string): string {
-  const imageSlug = slug.replace(/^\/+|\/+$/g, "") || "index";
-  return `/og/${imageSlug}.png`;
-}
-
-export function getOgImagePath(pathname: string): string {
-  const normalizedPath = normalizePagePath(pathname);
-  const slug = normalizedPath === "/" ? "index" : normalizedPath.replace(/^\/+|\/+$/g, "");
-
-  return buildOgImagePath(slug);
+export function buildCanonicalUrl(pathname: string, siteUrl: string = SITE.url) {
+  return new URL(normalizePagePath(pathname), `${siteUrl}/`).href;
 }

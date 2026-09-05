@@ -1,5 +1,5 @@
 import type { AstroIntegration } from "astro";
-import { generateSiteIcons } from "../lib/og";
+import { generateSiteIcons } from "@/lib/og";
 
 export default function generatedAssets(): AstroIntegration {
   return {

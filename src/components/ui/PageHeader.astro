@@ -1,0 +1,45 @@
+---
+interface Props {
+  /** Page title — page chrome renders in the site's lowercase voice */
+  title: string;
+  /** Subtitle / description below the title */
+  subtitle?: string;
+  /** Landing heroes and the 404 step up from the inner-page default */
+  hero?: boolean;
+}
+
+const { title, subtitle, hero = false } = Astro.props;
+---
+
+<div class="page-header rise" style="--d: 0ms">
+  <h1 class:list={[hero && "hero-title"]} translate="no">
+    {title}<span class="period" aria-hidden="true">.</span>
+  </h1>
+  {subtitle && <p>{subtitle}</p>}
+</div>
+
+<style>
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--title-subtitle-gap);
+  }
+
+  h1 {
+    font-weight: 650;
+    font-size: var(--text-page);
+    letter-spacing: var(--letter-spacing-heading);
+  }
+
+  /* the landing hero steps up to the shared hero role */
+  .page-header h1.hero-title {
+    font-weight: 700;
+    font-size: var(--text-hero);
+    line-height: 1.12;
+    letter-spacing: var(--letter-spacing-display);
+  }
+
+  .page-header p {
+    color: var(--color-muted-foreground);
+  }
+</style>

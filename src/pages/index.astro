@@ -1,46 +1,45 @@
 ---
 import { getCollection } from "astro:content";
-import PageHero from "../components/PageHero.astro";
-import { buildPageTitle, SITE } from "../consts";
-import SiteLayout from "../layouts/SiteLayout.astro";
-import { buildPromptSummaries, PROMPTS_REPOSITORY } from "../lib/prompt-catalog";
-import { buildPromptPath } from "../lib/site-paths";
+import PageHeader from "@/components/ui/PageHeader.astro";
+import PageShell from "@/components/ui/PageShell.astro";
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import { SITE } from "@/consts";
+import { buildPageTitle } from "@/lib/route-metadata";
+import { buildPromptSummaries } from "@/lib/prompt-catalog";
+import { buildAllPath, buildPromptPath } from "@/lib/site-paths";
 
 const definitions = await getCollection("promptDefinitions");
-const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
+const prompts = buildPromptSummaries(definitions);
 const featured = prompts.filter((prompt) => prompt.featured);
 ---
 
-<SiteLayout
-  title={buildPageTitle()}
-  description={SITE.description}
->
-  <section class="page-shell" aria-labelledby="page-title">
-    <PageHero
-      hero
-      title="prompts"
-      description="Reusable prompts for AI coding agents and chat apps. Copy, paste, run."
-    />
+<SiteLayout title={buildPageTitle()} description={SITE.description}>
+  <PageShell>
+    <Fragment slot="header">
+      <PageHeader title="prompts" hero subtitle="Reusable prompts for AI coding agents and chat apps. Copy, paste, run." />
+    </Fragment>
 
     <div class="section-header rise" style="--d: 80ms">
       <h2 class="section-title">favourite prompts</h2>
-      <a class="section-link" href={buildPromptPath(import.meta.env.BASE_URL, "all")}>
-        all prompts <span class="arrow" aria-hidden="true">→</span>
+      <a href={buildAllPath(import.meta.env.BASE_URL)} class="section-link">
+        all prompts
+        <span class="arrow" aria-hidden="true">&rarr;</span>
       </a>
     </div>
 
-    <ul class="content-list prompt-grid">
-      {featured.map((prompt, i) => (
-        <li class="rise" style={`--d: ${160 + Math.min(i, 7) * 70}ms`}>
+    <ul class="content-list">
+      {featured.map((prompt, index) => (
+        <li class="rise" style={`--d: ${160 + Math.min(index, 7) * 70}ms`}>
           <a href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)} class="prompt-card">
             <span class="prompt-card-title" translate="no">{prompt.name}</span>
             <span class="prompt-card-description">{prompt.description}</span>
             <span class="prompt-card-foot">
-              read <span class="arrow" aria-hidden="true">→</span>
+              read
+              <span class="arrow" aria-hidden="true">&rarr;</span>
             </span>
           </a>
         </li>
       ))}
     </ul>
-  </section>
+  </PageShell>
 </SiteLayout>

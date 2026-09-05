@@ -2,11 +2,12 @@ import { satteri } from "@astrojs/markdown-satteri";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 import expressiveCode from "satteri-expressive-code";
+import { SITE } from "./src/consts";
 import generatedAssets from "./src/integrations/generated-assets";
-import { removeLeadingHeading } from "./src/lib/remove-leading-heading";
+import removeLeadingHeading from "./src/lib/remove-leading-heading";
 
 export default defineConfig({
-  site: "https://prompts.abijith.sh",
+  site: SITE.url,
   base: "/",
   output: "static",
   trailingSlash: "always",
