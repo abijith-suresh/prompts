@@ -1,36 +1,27 @@
 ---
 import { getCollection } from "astro:content";
 import PageHero from "../components/PageHero.astro";
-import { buildPageTitle, SITE } from "../consts";
+import { buildPageTitle } from "../consts";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { buildPromptSummaries, PROMPTS_REPOSITORY } from "../lib/prompt-catalog";
 import { buildPromptPath } from "../lib/site-paths";
 
 const definitions = await getCollection("promptDefinitions");
 const prompts = buildPromptSummaries(definitions, PROMPTS_REPOSITORY);
-const featured = prompts.filter((prompt) => prompt.featured);
 ---
 
 <SiteLayout
-  title={buildPageTitle()}
-  description={SITE.description}
+  title={buildPageTitle("all prompts")}
+  description="Every reusable AI prompt in the collection — for coding agents and chat apps. Copy what you need."
 >
   <section class="page-shell" aria-labelledby="page-title">
     <PageHero
-      hero
-      title="prompts"
-      description="Reusable prompts for AI coding agents and chat apps. Copy, paste, run."
+      title="all prompts"
+      description="Every prompt in the collection, on one page. Copy what you need."
     />
 
-    <div class="section-header section-header-row rise" style="--d: 80ms">
-      <h2 class="section-title">favourite prompts</h2>
-      <a class="text-link" href={buildPromptPath(import.meta.env.BASE_URL, "all")}>
-        all prompts <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-
     <ul class="content-list prompt-grid">
-      {featured.map((prompt, i) => (
+      {prompts.map((prompt, i) => (
         <li class="rise" style={`--d: ${160 + Math.min(i, 7) * 70}ms`}>
           <a href={buildPromptPath(import.meta.env.BASE_URL, prompt.slug)} class="prompt-card">
             <span class="prompt-card-title" translate="no">{prompt.name}</span>

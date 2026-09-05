@@ -24,10 +24,17 @@ describe("buildPromptSourceUrl", () => {
 });
 
 describe("buildPromptSummaries", () => {
-  it("sorts prompts by display name and builds source URLs", () => {
+  it("sorts prompts by display name, builds source URLs, and flags featured prompts", () => {
     const summaries = buildPromptSummaries(
       [
-        { id: "z-prompt", data: { name: "Zed", description: "Last" } },
+        {
+          id: "z-prompt",
+          data: {
+            name: "Zed",
+            description: "Last",
+            metadata: { featured: true },
+          },
+        },
         { id: "a-prompt", data: { name: "Alpha", description: "First" } },
       ],
       "owner/repo"
@@ -38,12 +45,14 @@ describe("buildPromptSummaries", () => {
         slug: "a-prompt",
         name: "Alpha",
         description: "First",
+        featured: false,
         sourceUrl: "https://github.com/owner/repo/tree/main/prompts/a-prompt",
       },
       {
         slug: "z-prompt",
         name: "Zed",
         description: "Last",
+        featured: true,
         sourceUrl: "https://github.com/owner/repo/tree/main/prompts/z-prompt",
       },
     ]);

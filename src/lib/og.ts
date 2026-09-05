@@ -52,8 +52,8 @@ async function renderOgSvg(route: OgRoute) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#080808",
-          color: "#fafafa",
+          backgroundColor: "#1a1823",
+          color: "#e0ddef",
           padding: 72,
           fontFamily: "IBM Plex Sans",
         },
@@ -73,7 +73,7 @@ async function renderOgSvg(route: OgRoute) {
                     style: {
                       width: "100%",
                       height: 1,
-                      backgroundColor: "#3f3f3f",
+                      backgroundColor: "#312f39",
                     },
                   },
                 },
@@ -90,12 +90,11 @@ async function renderOgSvg(route: OgRoute) {
                         type: "div",
                         props: {
                           style: {
-                            color: "#a9a9a9",
+                            color: "#a09aad",
                             fontFamily: "IBM Plex Mono",
                             fontSize: 24,
                             fontWeight: 500,
                             letterSpacing: 3,
-                            textTransform: "uppercase",
                           },
                           children: route.kind,
                         },
@@ -128,7 +127,7 @@ async function renderOgSvg(route: OgRoute) {
                             display: "flex",
                             flexDirection: "column",
                             gap: 8,
-                            color: "#a9a9a9",
+                            color: "#a09aad",
                             fontSize: 32,
                             lineHeight: 1.25,
                           },
@@ -169,7 +168,7 @@ async function renderOgSvg(route: OgRoute) {
                     style: {
                       width: "100%",
                       height: 1,
-                      backgroundColor: "#3f3f3f",
+                      backgroundColor: "#312f39",
                     },
                   },
                 },
@@ -200,26 +199,37 @@ async function renderIconSvg(size: number) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#080808",
-          color: "#fafafa",
+          backgroundColor: "#1a1823",
+          borderRadius: size * 0.16,
+          color: "#e0ddef",
           fontFamily: "IBM Plex Sans",
-          fontSize: size * 0.32,
+          fontSize: size * 0.52,
           fontWeight: 500,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
         },
-        children: {
-          type: "div",
-          props: {
-            style: {
-              width: size * 0.68,
-              height: size * 0.68,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: `${size * 0.012}px solid #3f3f3f`,
+        children: [
+          {
+            type: "span",
+            props: {
+              style: {
+                color: "#e0ddef",
+                // Optically centered: nudge up ~6% of the glyph size.
+                transform: `translateY(${size * 0.52 * -0.06}px)`,
+              },
+              children: SITE.mark,
             },
-            children: SITE.mark,
           },
-        },
+          {
+            // The Dusk Aurora signature: the pink period
+            // (var(--color-pink), oklch(83.9% 0.069 3)).
+            type: "span",
+            props: {
+              style: { color: "#f2b8c6" },
+              children: ".",
+            },
+          },
+        ],
       },
     },
     {

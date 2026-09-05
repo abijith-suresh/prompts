@@ -1,20 +1,23 @@
 ---
+import { SITE } from "../consts";
+
+const repositoryUrl = `https://github.com/${SITE.repository}`;
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <a
-      href="https://github.com/abijith-suresh/prompts"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="footer-link"
-    >
-      GitHub
-    </a>
-
-    <p class="eyebrow">
-      &copy; {currentYear} Abijith Suresh
+    <div class="footer-meta">
+      <p>&copy; {currentYear} abijith s</p>
+    </div>
+    <p class="footer-meta">
+      <a class="footer-link" href={repositoryUrl} target="_blank" rel="noopener noreferrer">
+        github<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
+      </a>
+      <span aria-hidden="true">&middot;</span>
+      <a class="footer-link" href="https://abijith.sh" target="_blank" rel="noopener noreferrer">
+        abijith.sh<span class="arrow-ext" aria-hidden="true">&nbsp;↗</span>
+      </a>
     </p>
   </div>
 </footer>

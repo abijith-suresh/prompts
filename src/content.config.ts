@@ -13,6 +13,7 @@ const promptDefinitions = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    metadata: z.record(z.string(), z.unknown()).optional(),
   }),
 });
 

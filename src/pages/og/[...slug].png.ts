@@ -29,6 +29,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
         },
       },
     },
+    {
+      params: { slug: "all" },
+      props: {
+        route: {
+          title: "all prompts",
+          description:
+            "Every reusable AI prompt in the collection — for coding agents and chat apps.",
+          kind: "catalog" as const,
+        },
+      },
+    },
     ...definitions.map((definition) => ({
       params: { slug: definition.id },
       props: {
